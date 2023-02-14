@@ -47,9 +47,12 @@ kapt {
 
 dependencies {
     kapt(libs.hiltCompiler)
+    kapt(libs.roomCompiler)
+
+    implementation(libs.bundles.ktx)
+    implementation(libs.bundles.room)
 
     implementation(libs.appCompat)
-    implementation(libs.bundles.ktx)
     implementation(libs.constraintLayout)
     implementation(libs.coroutines)
     implementation(libs.hiltAndroid)

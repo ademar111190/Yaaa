@@ -1,6 +1,8 @@
 [versions]
+coroutines = "1.6.4"
 hilt = "2.44"
 kotlin = "1.7.20"
+room = "2.5.0"
 
 [libraries]
 appCompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
@@ -13,9 +15,13 @@ junit = { module = "junit:junit", version = "4.13.2" }
 material = { module = "com.google.android.material:material", version = "1.8.0" }
 navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version = "2.5.3" }
 navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version = "2.5.3" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
 
 [bundles]
 ktx = ["coreKtx", "navigationFragmentKtx", "navigationUiKtx"]
+room = ["roomRuntime", "roomKtx"]
 
 [plugins]
 androidApp = { id = "com.android.application", version = "7.3.1" }
