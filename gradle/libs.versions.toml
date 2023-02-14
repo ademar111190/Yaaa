@@ -6,6 +6,7 @@ kotlin = "1.7.20"
 appCompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
 constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
 coreKtx = { module = "androidx.core:core-ktx", version = "1.9.0" }
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hiltCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version = "4.13.2" }

@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.appCompat)
     implementation(libs.bundles.ktx)
     implementation(libs.constraintLayout)
+    implementation(libs.coroutines)
     implementation(libs.hiltAndroid)
     implementation(libs.material)
 
