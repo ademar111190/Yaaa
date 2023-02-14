@@ -12,7 +12,7 @@ interface AppointmentDao {
     suspend fun readAll(): List<AppointmentEntity>
 
     @Query("SELECT * FROM appointments WHERE appointments.pk = :id")
-    suspend fun read(id: Long): AppointmentEntity
+    suspend fun read(id: Long): AppointmentEntity?
 
     @Query("SELECT * FROM appointments WHERE appointments.location_fk IN (:locationIds)")
     suspend fun read(locationIds: List<Long>): List<AppointmentEntity>

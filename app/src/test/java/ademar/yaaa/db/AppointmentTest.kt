@@ -1,7 +1,7 @@
 package ademar.yaaa.db
 
+import ademar.yaaa.Dummies.makeAppointmentEntity
 import ademar.yaaa.db.appointment.AppointmentDao
-import ademar.yaaa.db.appointment.AppointmentEntity
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -11,7 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.time.Instant
 import java.util.*
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -43,7 +42,7 @@ class AppointmentTest {
 
     @Test
     fun create_readAll_shouldContainCreatedAppointment() = runTest {
-        val appointment = makeAppointment()
+        val appointment = makeAppointmentEntity()
         dao.create(appointment)
 
         val appointments = dao.readAll()
@@ -55,9 +54,9 @@ class AppointmentTest {
     @Test
     fun dbContainsAppointmentsInDifferentLocations_readGivenAnLocation_shouldReturnOnlyAppointmentsFromThatLocation() =
         runTest {
-            val appointment1 = makeAppointment()
-            val appointment2 = makeAppointment(id = 2, locationId = 2)
-            val appointment3 = makeAppointment(id = 3)
+            val appointment1 = makeAppointmentEntity()
+            val appointment2 = makeAppointmentEntity(id = 2, locationId = 2)
+            val appointment3 = makeAppointmentEntity(id = 3)
             dao.create(appointment1)
             dao.create(appointment2)
             dao.create(appointment3)
@@ -70,7 +69,7 @@ class AppointmentTest {
 
     @Test
     fun update_readAll_shouldContainUpdatedAppointment() = runTest {
-        val appointment = makeAppointment()
+        val appointment = makeAppointmentEntity()
         dao.create(appointment)
         val updatedAppointment = appointment.copy(description = "An Updated Description")
         dao.update(updatedAppointment)
@@ -83,7 +82,7 @@ class AppointmentTest {
 
     @Test
     fun delete_readAll_shouldNotContainDeletedAppointment() = runTest {
-        val appointment = makeAppointment()
+        val appointment = makeAppointmentEntity()
         dao.create(appointment)
         dao.delete(appointment)
 
@@ -91,10 +90,5 @@ class AppointmentTest {
 
         assertEquals(appointments.size, 0)
     }
-
-    private fun makeAppointment(
-        id: Long = 1,
-        locationId: Long = 1,
-    ) = AppointmentEntity(id, locationId, Date.from(Instant.now()), "A Description")
 
 }

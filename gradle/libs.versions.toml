@@ -2,6 +2,7 @@
 coroutines = "1.6.4"
 hilt = "2.44"
 kotlin = "1.7.20"
+mockito = "5.1.1"
 room = "2.5.0"
 
 [libraries]
@@ -18,6 +19,9 @@ kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotli
 logBack = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
 logBackAndroid = { module = "com.github.tony19:logback-android", version = "2.0.1" }
 material = { module = "com.google.android.material:material", version = "1.8.0" }
+mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockitoInline = { module = "org.mockito:mockito-inline", version.ref = "mockito" }
+mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "4.1.0" }
 robolectric = { module = "org.robolectric:robolectric", version = "4.9.2" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -28,7 +32,8 @@ slf4j = { module = "org.slf4j:slf4j-api", version = "1.7.36" }
 ktx = ["coreKtx"]
 log = ["logBackAndroid", "slf4j"]
 room = ["roomRuntime", "roomKtx"]
-unitTest = ["coroutinesTest", "logBack", "junit", "junitKtx", "kotlinTest", "robolectric"]
+unitTest = ["coroutinesTest", "logBack", "junit", "junitKtx", "kotlinTest",
+    "mockito", "mockitoInline", "mockitoKotlin", "robolectric"]
 
 [plugins]
 androidApp = { id = "com.android.application", version = "7.3.1" }

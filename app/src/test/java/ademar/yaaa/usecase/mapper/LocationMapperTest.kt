@@ -1,7 +1,7 @@
 package ademar.yaaa.usecase.mapper
 
-import ademar.yaaa.data.Location
-import ademar.yaaa.db.location.LocationEntity
+import ademar.yaaa.Dummies.makeLocation
+import ademar.yaaa.Dummies.makeLocationEntity
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -32,16 +32,5 @@ class LocationMapperTest {
 
         assertEquals(location, makeLocation())
     }
-
-    private fun makeLocation() = Location(
-        id = 1,
-        name = "name",
-    )
-
-    private fun makeLocationEntity() = LocationEntity(
-        id = 1,
-        name = "name",
-        deleted = false,
-    )
 
 }

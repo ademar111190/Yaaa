@@ -36,3 +36,4 @@ Yaaa (Yeap Another Appointment App)
 ## Improvements
 
 - [ ] Locations are being soft deleted to avoid inconsistency when reading the appointments; an improvement would be to delete it forever as soon as no appointments are using it anymore.
+- [ ] The uses cases are accessing the database directly, an improvement would be to create a repository layer to abstract the database access including an in memory LRU cache.

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Yaaa</string>
+    <string name="unknown_location">Localização desconhecida</string>
 </resources>

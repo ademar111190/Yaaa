@@ -1,5 +1,6 @@
 package ademar.yaaa.db
 
+import ademar.yaaa.Dummies.initialLocationEntities
 import ademar.yaaa.db.location.LocationDao
 import ademar.yaaa.db.location.LocationEntity
 import android.content.Context
@@ -38,7 +39,7 @@ class LocationTest {
         val locations = dao.readAll()
 
         assertEquals(locations.size, 6)
-        assertContentEquals(locations, initialLocations().toList())
+        assertContentEquals(locations, initialLocationEntities().toList())
     }
 
     @Test
@@ -51,7 +52,7 @@ class LocationTest {
         assertEquals(locations.size, 7)
         assertContentEquals(
             locations, listOf(
-                *initialLocations(),
+                *initialLocationEntities(),
                 LocationEntity(7, "New York", false),
             )
         )
@@ -76,7 +77,7 @@ class LocationTest {
         assertEquals(locations.size, 5)
         assertContentEquals(
             locations, listOf(
-                *initialLocations().drop(1).toTypedArray(),
+                *initialLocationEntities().drop(1).toTypedArray(),
             )
         )
     }
@@ -90,12 +91,4 @@ class LocationTest {
         assertEquals(location, LocationEntity(1, "San Diego", true))
     }
 
-    private fun initialLocations() = arrayOf(
-        LocationEntity(1, "San Diego", false),
-        LocationEntity(2, "St. George", false),
-        LocationEntity(3, "Park City", false),
-        LocationEntity(4, "Dallas", false),
-        LocationEntity(5, "Memphis", false),
-        LocationEntity(6, "Orlando", false),
-    )
 }

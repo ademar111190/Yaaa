@@ -1,12 +1,10 @@
 package ademar.yaaa.usecase.mapper
 
-import ademar.yaaa.data.Appointment
-import ademar.yaaa.data.Location
-import ademar.yaaa.db.appointment.AppointmentEntity
+import ademar.yaaa.Dummies.makeAppointment
+import ademar.yaaa.Dummies.makeAppointmentEntity
+import ademar.yaaa.Dummies.makeLocation
 import org.junit.Before
 import org.junit.Test
-import java.time.Instant
-import java.util.*
 import kotlin.test.assertEquals
 
 class AppointmentMapperTest {
@@ -35,26 +33,5 @@ class AppointmentMapperTest {
 
         assertEquals(appointment, makeAppointment())
     }
-
-    private val date = Date.from(Instant.now())
-
-    private fun makeAppointment() = Appointment(
-        id = 1,
-        location = makeLocation(),
-        date = date,
-        description = "description",
-    )
-
-    private fun makeAppointmentEntity() = AppointmentEntity(
-        id = 1,
-        locationId = 1,
-        date = date,
-        description = "description",
-    )
-
-    private fun makeLocation() = Location(
-        id = 1,
-        name = "name",
-    )
 
 }

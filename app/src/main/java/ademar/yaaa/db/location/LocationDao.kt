@@ -12,7 +12,7 @@ interface LocationDao {
     suspend fun readAll(): List<LocationEntity>
 
     @Query("SELECT * FROM locations WHERE pk = :id")
-    suspend fun read(id: Long): LocationEntity
+    suspend fun read(id: Long): LocationEntity?
 
     // Instead of delete, we use a soft delete to keep the data consistency
     @Query("UPDATE locations SET deleted = 1 WHERE pk = :locationId")
