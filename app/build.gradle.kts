@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApp)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinKapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -39,10 +41,18 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
-    implementation(libs.bundles.ktx)
+    kapt(libs.hiltCompiler)
+
     implementation(libs.appCompat)
-    implementation(libs.material)
+    implementation(libs.bundles.ktx)
     implementation(libs.constraintLayout)
+    implementation(libs.hiltAndroid)
+    implementation(libs.material)
+
     testImplementation(libs.junit)
 }

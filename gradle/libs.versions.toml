@@ -1,9 +1,13 @@
 [versions]
+hilt = "2.44"
+kotlin = "1.7.20"
 
 [libraries]
 appCompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
 constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
 coreKtx = { module = "androidx.core:core-ktx", version = "1.9.0" }
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hiltCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version = "4.13.2" }
 material = { module = "com.google.android.material:material", version = "1.8.0" }
 navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version = "2.5.3" }
@@ -14,4 +18,6 @@ ktx = ["coreKtx", "navigationFragmentKtx", "navigationUiKtx"]
 
 [plugins]
 androidApp = { id = "com.android.application", version = "7.3.1" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version = "1.7.20" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
