@@ -192,4 +192,5 @@ class AndroidLifecycleLogger @Inject constructor() : ActivityLifecycleCallbacks,
         super.onFragmentDetached(fm, f)
         log.debug("onFragmentDetached $fm $f")
     }
+
 }

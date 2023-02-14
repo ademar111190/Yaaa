@@ -9,12 +9,16 @@ appCompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
 constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
 coreKtx = { module = "androidx.core:core-ktx", version = "1.9.0" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hiltCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version = "4.13.2" }
+junitKtx = { module = "androidx.test.ext:junit-ktx", version = "1.1.5" }
+kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 logBack = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
 logBackAndroid = { module = "com.github.tony19:logback-android", version = "2.0.1" }
 material = { module = "com.google.android.material:material", version = "1.8.0" }
+robolectric = { module = "org.robolectric:robolectric", version = "4.9.2" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
@@ -24,7 +28,7 @@ slf4j = { module = "org.slf4j:slf4j-api", version = "1.7.36" }
 ktx = ["coreKtx"]
 log = ["logBackAndroid", "slf4j"]
 room = ["roomRuntime", "roomKtx"]
-unitTest = ["logBack", "junit"]
+unitTest = ["coroutinesTest", "logBack", "junit", "junitKtx", "kotlinTest", "robolectric"]
 
 [plugins]
 androidApp = { id = "com.android.application", version = "7.3.1" }
