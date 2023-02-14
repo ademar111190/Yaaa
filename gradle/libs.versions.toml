@@ -15,15 +15,13 @@ junit = { module = "junit:junit", version = "4.13.2" }
 logBack = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
 logBackAndroid = { module = "com.github.tony19:logback-android", version = "2.0.1" }
 material = { module = "com.google.android.material:material", version = "1.8.0" }
-navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version = "2.5.3" }
-navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version = "2.5.3" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
 roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
 slf4j = { module = "org.slf4j:slf4j-api", version = "1.7.36" }
 
 [bundles]
-ktx = ["coreKtx", "navigationFragmentKtx", "navigationUiKtx"]
+ktx = ["coreKtx"]
 log = ["logBackAndroid", "slf4j"]
 room = ["roomRuntime", "roomKtx"]
 unitTest = ["logBack", "junit"]
