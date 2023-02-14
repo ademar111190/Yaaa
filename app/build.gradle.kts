@@ -50,6 +50,7 @@ dependencies {
     kapt(libs.roomCompiler)
 
     implementation(libs.bundles.ktx)
+    implementation(libs.bundles.log)
     implementation(libs.bundles.room)
 
     implementation(libs.appCompat)
@@ -58,5 +59,5 @@ dependencies {
     implementation(libs.hiltAndroid)
     implementation(libs.material)
 
-    testImplementation(libs.junit)
+    testImplementation(libs.bundles.unitTest)
 }
