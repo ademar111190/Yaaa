@@ -13,7 +13,7 @@
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <lazy>true</lazy>
-        <file>/data/data/mempool.space/files/log.txt</file>
+        <file>/data/data/ademar.yaaa/files/log.txt</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
