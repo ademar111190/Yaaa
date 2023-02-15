@@ -1,6 +1,6 @@
 package ademar.yaaa.page.appointment
 
-import java.util.Date
+import java.util.*
 
 sealed class AppointmentCommand
 
@@ -13,4 +13,9 @@ data class NavigateToDatePicker(
 data class NavigateToTimePicker(
     val hour: Int,
     val minute: Int,
+) : AppointmentCommand()
+
+data class AnnounceSaveSuccess(
+    val message: String,
+    val action: String,
 ) : AppointmentCommand()

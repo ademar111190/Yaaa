@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +21,7 @@ class AppointmentActivity : AppCompatActivity() {
     private val log = LoggerFactory.getLogger("AppointmentActivity")
     private val viewModel by viewModels<AppointmentViewModel>()
     private lateinit var binding: AppointmentActivityBinding
+    private var descriptionInEdition = false
 
     private val spinnerAdapter by lazy {
         AppointmentLocationsSpinnerAdapter(this) { newLocation ->
@@ -35,9 +37,11 @@ class AppointmentActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener {
             viewModel.back()
         }
-        binding.description.addTextChangedListener { text ->
-            viewModel.updateDescription(text.toString())
-        }
+        binding.description.addTextChangedListener(
+            beforeTextChanged = { _, _, _, _ -> descriptionInEdition = true },
+            onTextChanged = { text, _, _, _ -> viewModel.updateDescription(text.toString()) },
+            afterTextChanged = { descriptionInEdition = false },
+        )
         binding.locations.apply {
             adapter = spinnerAdapter
             onItemSelectedListener = spinnerAdapter
@@ -47,6 +51,9 @@ class AppointmentActivity : AppCompatActivity() {
         }
         binding.hour.setOnClickListener {
             viewModel.changeHour()
+        }
+        binding.save.setOnClickListener {
+            viewModel.save()
         }
 
         viewModel.model.observe(this) { model ->
@@ -65,6 +72,7 @@ class AppointmentActivity : AppCompatActivity() {
                 is NavigateBack -> finish()
                 is NavigateToDatePicker -> onDatePicker(command)
                 is NavigateToTimePicker -> onTimePicker(command)
+                is AnnounceSaveSuccess -> onAnnounceSaveSuccess(command)
             }
         }
 
@@ -95,6 +103,18 @@ class AppointmentActivity : AppCompatActivity() {
         timePicker.show(supportFragmentManager, "timePicker")
     }
 
+    private fun onAnnounceSaveSuccess(command: AnnounceSaveSuccess) {
+        val snackbar = Snackbar.make(
+            binding.root,
+            command.message,
+            Snackbar.LENGTH_LONG,
+        )
+        snackbar.setAction(command.action) {
+            viewModel.back()
+        }
+        snackbar.show()
+    }
+
     private fun onLoading() {
         binding.contentGroup.visibility = GONE
         binding.errorGroup.visibility = GONE
@@ -112,10 +132,48 @@ class AppointmentActivity : AppCompatActivity() {
         binding.loadGroup.visibility = GONE
         binding.errorGroup.visibility = GONE
         binding.contentGroup.visibility = VISIBLE
-        binding.description.setText(model.description)
+        if (!descriptionInEdition) {
+            binding.description.setText(model.description)
+        }
         spinnerAdapter.updateLocations(model.locationOptions)
         binding.date.text = model.date
         binding.hour.text = model.hour
+
+        when (model.saveStatus) {
+            SaveStatus.SAVED -> {
+                binding.save.apply {
+                    isEnabled = false
+                    visibility = VISIBLE
+                }
+                binding.saveLoad.visibility = GONE
+                binding.description.isEnabled = true
+                binding.locations.isEnabled = true
+                binding.date.isEnabled = true
+                binding.hour.isEnabled = true
+            }
+            SaveStatus.SAVING -> {
+                binding.save.apply {
+                    isEnabled = false
+                    visibility = GONE
+                }
+                binding.saveLoad.visibility = VISIBLE
+                binding.description.isEnabled = false
+                binding.locations.isEnabled = false
+                binding.date.isEnabled = false
+                binding.hour.isEnabled = false
+            }
+            SaveStatus.NOT_SAVED -> {
+                binding.save.apply {
+                    isEnabled = true
+                    visibility = VISIBLE
+                }
+                binding.saveLoad.visibility = GONE
+                binding.description.isEnabled = true
+                binding.locations.isEnabled = true
+                binding.date.isEnabled = true
+                binding.hour.isEnabled = true
+            }
+        }
     }
 
 }

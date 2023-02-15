@@ -15,5 +15,9 @@
     <string name="appointment_select_date">Select date</string>
     <string name="appointment_select_time">Select time</string>
     <string name="appointment_save">Save</string>
+    <string name="appointment_saved">Appointment saved.</string>
+    <string name="appointment_saved_leave_edition">Finish edition</string>
     <string name="appointment_error_fetching_locations">Error fetching locations.</string>
+    <string name="appointment_error_invalid_location">Invalid location.</string>
+    <string name="appointment_error_failed_to_save">Failed to save appointment.</string>
 </resources>

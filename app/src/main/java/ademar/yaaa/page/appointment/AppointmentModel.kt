@@ -16,4 +16,11 @@ data class Success(
     val location: String?,
     val description: String,
     val locationOptions: Set<String>,
+    val saveStatus: SaveStatus,
 ) : AppointmentModel()
+
+enum class SaveStatus {
+    SAVED,
+    SAVING,
+    NOT_SAVED,
+}

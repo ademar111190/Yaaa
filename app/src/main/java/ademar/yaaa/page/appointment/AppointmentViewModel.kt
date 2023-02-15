@@ -2,6 +2,7 @@ package ademar.yaaa.page.appointment
 
 import ademar.yaaa.R
 import ademar.yaaa.data.Location
+import ademar.yaaa.usecase.CreateAppointment
 import ademar.yaaa.usecase.DateCreator
 import ademar.yaaa.usecase.FetchLocations
 import ademar.yaaa.usecase.mapper.DateTimeMapper
@@ -22,6 +23,7 @@ class AppointmentViewModel @Inject constructor(
     dateCreator: DateCreator,
     private val dateTimeMapper: DateTimeMapper,
     private val fetchLocations: FetchLocations,
+    private val createAppointment: CreateAppointment,
 ) : AndroidViewModel(application) {
 
     private val log = LoggerFactory.getLogger("AppointmentViewModel")
@@ -48,21 +50,37 @@ class AppointmentViewModel @Inject constructor(
             return@launch
         }
 
-        model.value = success()
+        model.value = success(
+            saveStatus = SaveStatus.NOT_SAVED,
+        )
     }
 
     fun updateDescription(newDescription: String) {
         log.debug("updateDescription: $newDescription")
+        if (newDescription == description) {
+            return
+        }
+
         description = newDescription
+        model.value = success(
+            saveStatus = SaveStatus.NOT_SAVED,
+        )
     }
 
     fun updateLocation(newLocation: String?) {
         log.debug("updateLocation: $newLocation")
+        if (newLocation == location?.name) {
+            return
+        }
+
         location = if (newLocation != null && locationsMap.containsKey(newLocation)) {
             locationsMap[newLocation]
         } else {
             null
         }
+        model.value = success(
+            saveStatus = SaveStatus.NOT_SAVED,
+        )
     }
 
     fun changeDate() {
@@ -73,7 +91,9 @@ class AppointmentViewModel @Inject constructor(
     fun dateChanged(date: Long) {
         log.debug("dateChanged: $date")
         dateTime = dateTimeMapper.mergeToDate(dateTime, date)
-        model.value = success()
+        model.value = success(
+            saveStatus = SaveStatus.NOT_SAVED,
+        )
     }
 
     fun changeHour() {
@@ -87,7 +107,44 @@ class AppointmentViewModel @Inject constructor(
     fun timeChanged(hour: Int, minute: Int) {
         log.debug("timeChanged: $hour:$minute")
         dateTime = dateTimeMapper.mergeToDate(dateTime, hour, minute)
-        model.value = success()
+        model.value = success(
+            saveStatus = SaveStatus.NOT_SAVED,
+        )
+    }
+
+    fun save() = viewModelScope.launch {
+        log.debug("save")
+        model.value = success(
+            saveStatus = SaveStatus.SAVING,
+        )
+
+        val validLocation = location
+        if (validLocation == null) {
+            log.error("Error creating appointment: location is null")
+            model.value = Error(resources.getString(R.string.appointment_error_invalid_location))
+            return@launch
+        }
+
+        try {
+            createAppointment.createAppointment(
+                date = dateTime,
+                location = validLocation,
+                description = description,
+            )
+        } catch (e: Exception) {
+            log.error("Error creating appointment", e)
+            model.value = Error(resources.getString(R.string.appointment_error_failed_to_save))
+            return@launch
+        }
+
+        model.value = success(
+            saveStatus = SaveStatus.SAVED,
+        )
+
+        command.value = AnnounceSaveSuccess(
+            message = resources.getString(R.string.appointment_saved),
+            action = resources.getString(R.string.appointment_saved_leave_edition),
+        )
     }
 
     fun back() {
@@ -95,12 +152,15 @@ class AppointmentViewModel @Inject constructor(
         command.value = NavigateBack
     }
 
-    private fun success() = Success(
+    private fun success(
+        saveStatus: SaveStatus,
+    ) = Success(
         hour = dateTimeMapper.mapToHourString(dateTime),
         date = dateTimeMapper.mapToDateString(dateTime),
         location = location?.name,
         description = description,
         locationOptions = locationsMap.keys.toSet(),
+        saveStatus = saveStatus,
     )
 
 }
