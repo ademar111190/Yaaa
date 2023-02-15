@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Yaaa</string>
     <string name="unknown_location">Unknown Location</string>
+    <string name="appointments_title">Appointments</string>
+    <string name="appointments_retry">Retry</string>
+    <string name="appointments_placeholder">No appointments, tap the plus button to create one.</string>
+    <string name="appointments_error_fetching_appointments">Error fetching appointments, please try again.</string>
 </resources>

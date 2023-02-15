@@ -50,6 +50,7 @@ dependencies {
     kapt(libs.roomCompiler)
 
     implementation(libs.bundles.ktx)
+    implementation(libs.bundles.lifeCycle)
     implementation(libs.bundles.log)
     implementation(libs.bundles.room)
 

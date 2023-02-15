@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Yaaa</string>
     <string name="unknown_location">Localização desconhecida</string>
+    <string name="appointments_title">Agendamentos</string>
+    <string name="appointments_retry">Tentar novamente</string>
+    <string name="appointments_placeholder">Nenhum agendamento, toque no botão de adicionar para criar um.</string>
+    <string name="appointments_error_fetching_appointments">Erro ao buscar agendamentos, por favor, tente novamente.</string>
 </resources>

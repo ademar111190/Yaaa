@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YeapAnotherAppointmentApp"
         tools:targetApi="33">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,6 +25,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".page.appointments.AppointmentsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="ademar.yaaa.fileprovider"
@@ -33,6 +39,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
     </application>
 
 </manifest>

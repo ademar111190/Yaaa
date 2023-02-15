@@ -4,6 +4,7 @@ hilt = "2.44"
 kotlin = "1.7.20"
 mockito = "5.1.1"
 room = "2.5.0"
+lifeCycle = "2.5.1"
 
 [libraries]
 appCompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
@@ -11,11 +12,15 @@ constraintLayout = { module = "androidx.constraintlayout:constraintlayout", vers
 coreKtx = { module = "androidx.core:core-ktx", version = "1.9.0" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+fragmentKtx = { module = "androidx.fragment:fragment-ktx", version = "1.5.5" }
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hiltCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version = "4.13.2" }
 junitKtx = { module = "androidx.test.ext:junit-ktx", version = "1.1.5" }
 kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+lifeCycleKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifeCycle" }
+lifeCycleLiveDataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifeCycle" }
+lifeCycleViewModelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifeCycle" }
 logBack = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
 logBackAndroid = { module = "com.github.tony19:logback-android", version = "2.0.1" }
 material = { module = "com.google.android.material:material", version = "1.8.0" }
@@ -29,7 +34,8 @@ roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
 slf4j = { module = "org.slf4j:slf4j-api", version = "1.7.36" }
 
 [bundles]
-ktx = ["coreKtx"]
+ktx = ["coreKtx", "fragmentKtx"]
+lifeCycle = ["lifeCycleKtx", "lifeCycleLiveDataKtx", "lifeCycleViewModelKtx"]
 log = ["logBackAndroid", "slf4j"]
 room = ["roomRuntime", "roomKtx"]
 unitTest = ["coroutinesTest", "logBack", "junit", "junitKtx", "kotlinTest",
