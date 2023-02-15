@@ -32,8 +32,10 @@ Yaaa (Yeap Another Appointment App)
 
 - The app uses the adaptative icon with material you enabled, so it will look different in different devices.
 - The list of libraries can be found in the [`gradle/libs.versions.toml`](gradle/libs.versions.toml) file.
+- The app contains translations for English and Portuguese.
 
 ## Improvements
 
 - [ ] Locations are being soft deleted to avoid inconsistency when reading the appointments; an improvement would be to delete it forever as soon as no appointments are using it anymore.
 - [ ] The uses cases are accessing the database directly, an improvement would be to create a repository layer to abstract the database access including an in memory LRU cache.
+- [ ] Placeholders are pure text and a good improvement is to add illustrations to them.
