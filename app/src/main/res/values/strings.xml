@@ -11,6 +11,9 @@
     <string name="appointment_creation_title">New Appointment</string>
     <string name="appointment_description_hint">Description</string>
     <string name="appointment_location_hint">Location:</string>
+    <string name="appointment_date_hint">Date and time:</string>
+    <string name="appointment_select_date">Select date</string>
+    <string name="appointment_select_time">Select time</string>
     <string name="appointment_save">Save</string>
     <string name="appointment_error_fetching_locations">Error fetching locations.</string>
 </resources>

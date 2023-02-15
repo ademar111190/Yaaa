@@ -11,6 +11,9 @@
     <string name="appointment_creation_title">Novo agendamento</string>
     <string name="appointment_description_hint">Descrição</string>
     <string name="appointment_location_hint">Local:</string>
+    <string name="appointment_date_hint">Data e hora:</string>
+    <string name="appointment_select_date">Selecione a data</string>
+    <string name="appointment_select_time">Selecione a hora</string>
     <string name="appointment_save">Salvar</string>
     <string name="appointment_error_fetching_locations">Erro ao buscar os locais.</string>
 </resources>

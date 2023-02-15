@@ -50,15 +50,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="2dp"
         android:text="@string/appointment_location_hint"
-        app:layout_constraintBottom_toTopOf="@+id/locations"
+        app:layout_constraintBottom_toBottomOf="@+id/locationsIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/locationsIcon"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/locationsIcon" />
 
     <Spinner
         android:id="@+id/locations"
@@ -68,11 +66,70 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/descriptionLayout"
+        app:layout_constraintBottom_toTopOf="@+id/dateAndTimeIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationsLabel" />
+
+    <ImageView
+        android:id="@+id/dateAndTimeIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="2dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_date_and_time"
+        android:text="@string/appointment_date_hint"
+        app:layout_constraintBottom_toTopOf="@+id/date"
+        app:layout_constraintEnd_toStartOf="@+id/dateAndTimeLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/locations" />
+
+    <TextView
+        android:id="@+id/dateAndTimeLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/appointment_date_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/dateAndTimeIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/dateAndTimeIcon"
+        app:layout_constraintTop_toTopOf="@+id/dateAndTimeIcon" />
+
+    <Button
+        android:id="@+id/date"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="2dp"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionLayout"
+        app:layout_constraintEnd_toStartOf="@+id/hour"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateAndTimeIcon"
+        tools:text="Wed, Feb 15, 2023" />
+
+    <Button
+        android:id="@+id/hour"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/date"
+        app:layout_constraintTop_toTopOf="@+id/date"
+        tools:text="3:41 PM" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/descriptionLayout"
@@ -84,7 +141,7 @@
         app:layout_constraintBottom_toTopOf="@+id/space"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locations">
+        app:layout_constraintTop_toBottomOf="@+id/date">
 
         <EditText
             android:id="@+id/description"
@@ -144,7 +201,7 @@
         android:id="@+id/contentGroup"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:constraint_referenced_ids="descriptionLayout,save,locationsIcon,locationsLabel,locations,space" />
+        app:constraint_referenced_ids="descriptionLayout,save,locationsIcon,locationsLabel,locations,space,dateAndTimeIcon,dateAndTimeLabel,date,hour" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/errorGroup"

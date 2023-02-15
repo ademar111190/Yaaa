@@ -28,7 +28,7 @@ class AppointmentViewModel @Inject constructor(
     val model = MutableLiveData<AppointmentModel>(Initial)
     val command = MutableLiveData<AppointmentCommand>()
 
-    private var date = dateCreator.create()
+    private var dateTime = dateCreator.create()
     private var location: Location? = null
     private var description = ""
     private val locationsMap = mutableMapOf<String, Location>()
@@ -48,21 +48,15 @@ class AppointmentViewModel @Inject constructor(
             return@launch
         }
 
-        model.value = Success(
-            hour = dateTimeMapper.mapToHourString(date),
-            date = dateTimeMapper.mapToDateString(date),
-            location = location?.name,
-            description = description,
-            locationOptions = locationsMap.keys.toSet(),
-        )
+        model.value = success()
     }
 
-    fun updateDescription(newDescription: String) = viewModelScope.launch {
+    fun updateDescription(newDescription: String) {
         log.debug("updateDescription: $newDescription")
         description = newDescription
     }
 
-    fun updateLocation(newLocation: String?) = viewModelScope.launch {
+    fun updateLocation(newLocation: String?) {
         log.debug("updateLocation: $newLocation")
         location = if (newLocation != null && locationsMap.containsKey(newLocation)) {
             locationsMap[newLocation]
@@ -71,9 +65,42 @@ class AppointmentViewModel @Inject constructor(
         }
     }
 
+    fun changeDate() {
+        log.debug("changeDate")
+        command.value = NavigateToDatePicker(dateTime)
+    }
+
+    fun dateChanged(date: Long) {
+        log.debug("dateChanged: $date")
+        dateTime = dateTimeMapper.mergeToDate(dateTime, date)
+        model.value = success()
+    }
+
+    fun changeHour() {
+        log.debug("changeHour")
+        command.value = NavigateToTimePicker(
+            hour = dateTimeMapper.mapToHour(dateTime),
+            minute = dateTimeMapper.mapToMinute(dateTime),
+        )
+    }
+
+    fun timeChanged(hour: Int, minute: Int) {
+        log.debug("timeChanged: $hour:$minute")
+        dateTime = dateTimeMapper.mergeToDate(dateTime, hour, minute)
+        model.value = success()
+    }
+
     fun back() {
         log.debug("back")
         command.value = NavigateBack
     }
+
+    private fun success() = Success(
+        hour = dateTimeMapper.mapToHourString(dateTime),
+        date = dateTimeMapper.mapToDateString(dateTime),
+        location = location?.name,
+        description = description,
+        locationOptions = locationsMap.keys.toSet(),
+    )
 
 }

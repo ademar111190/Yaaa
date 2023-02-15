@@ -1,11 +1,16 @@
 package ademar.yaaa.page.appointment
 
+import ademar.yaaa.R
 import ademar.yaaa.databinding.AppointmentActivityBinding
+import android.text.format.DateFormat.is24HourFormat
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import org.slf4j.LoggerFactory
 
@@ -37,6 +42,12 @@ class AppointmentActivity : AppCompatActivity() {
             adapter = spinnerAdapter
             onItemSelectedListener = spinnerAdapter
         }
+        binding.date.setOnClickListener {
+            viewModel.changeDate()
+        }
+        binding.hour.setOnClickListener {
+            viewModel.changeHour()
+        }
 
         viewModel.model.observe(this) { model ->
             log.debug("onModel: $model")
@@ -52,10 +63,36 @@ class AppointmentActivity : AppCompatActivity() {
             log.debug("onCommand: $command")
             when (command) {
                 is NavigateBack -> finish()
+                is NavigateToDatePicker -> onDatePicker(command)
+                is NavigateToTimePicker -> onTimePicker(command)
             }
         }
 
         viewModel.load()
+    }
+
+    private fun onDatePicker(command: NavigateToDatePicker) {
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText(R.string.appointment_select_date)
+            .setSelection(command.date.time)
+            .build()
+        datePicker.addOnPositiveButtonClickListener { date ->
+            viewModel.dateChanged(date)
+        }
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    private fun onTimePicker(command: NavigateToTimePicker) {
+        val timePicker = MaterialTimePicker.Builder()
+            .setTimeFormat(if (is24HourFormat(this)) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+            .setHour(command.hour)
+            .setMinute(command.minute)
+            .setTitleText(R.string.appointment_select_time)
+            .build()
+        timePicker.addOnPositiveButtonClickListener {
+            viewModel.timeChanged(timePicker.hour, timePicker.minute)
+        }
+        timePicker.show(supportFragmentManager, "timePicker")
     }
 
     private fun onLoading() {
@@ -77,6 +114,8 @@ class AppointmentActivity : AppCompatActivity() {
         binding.contentGroup.visibility = VISIBLE
         binding.description.setText(model.description)
         spinnerAdapter.updateLocations(model.locationOptions)
+        binding.date.text = model.date
+        binding.hour.text = model.hour
     }
 
 }
