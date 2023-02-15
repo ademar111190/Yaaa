@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "appointments")
 data class AppointmentEntity(
-    @PrimaryKey @ColumnInfo(name = "pk") val id: Long,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pk") val id: Long = 0,
     @ColumnInfo(name = "location_fk") val locationId: Long,
     @ColumnInfo(name = "date") val date: Date,
     @ColumnInfo(name = "description") val description: String,

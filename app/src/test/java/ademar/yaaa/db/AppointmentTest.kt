@@ -14,6 +14,7 @@ import org.robolectric.RobolectricTestRunner
 import java.util.*
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.fail
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
@@ -49,6 +50,20 @@ class AppointmentTest {
 
         assertEquals(appointments.size, 1)
         assertContentEquals(appointments, listOf(appointment))
+    }
+
+    @Test
+    fun readPk_nonExistentAppointment_shouldReturnNull() = runTest {
+        val pk = dao.readPk(1)
+        assertEquals(pk, null)
+    }
+
+    @Test
+    fun create_readPk_shouldReturnPk() = runTest {
+        val appointment = makeAppointmentEntity()
+        val rowId = dao.create(appointment) ?: fail("Failed to create appointment.")
+        val pk = dao.readPk(rowId)
+        assertEquals(pk, appointment.id)
     }
 
     @Test

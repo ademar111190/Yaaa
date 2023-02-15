@@ -1,12 +1,16 @@
 package ademar.yaaa.db.appointment
 
 import androidx.room.*
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 
 @Dao
 interface AppointmentDao {
 
-    @Insert
-    suspend fun create(appointment: AppointmentEntity)
+    @Insert(onConflict = REPLACE)
+    suspend fun create(appointment: AppointmentEntity): Long?
+
+    @Query("SELECT pk FROM appointments WHERE rowid = :rowId")
+    suspend fun readPk(rowId: Long): Long?
 
     @Query("SELECT * FROM appointments")
     suspend fun readAll(): List<AppointmentEntity>
