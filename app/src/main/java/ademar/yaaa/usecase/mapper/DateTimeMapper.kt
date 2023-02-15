@@ -13,17 +13,20 @@ class DateTimeMapper @Inject constructor(
     private val resources: Resources,
 ) {
 
-    fun mapToString(
+    fun mapToHourString(
         date: Date,
-    ): String = format().format(date)
+        locale: Locale = getDefault(),
+    ): String = SimpleDateFormat(
+        resources.getString(R.string.app_hour_format),
+        locale,
+    ).format(date)
 
-    fun mapToDate(
-        date: String,
-    ): Date = format().parse(date)!!
-
-    private fun format() = SimpleDateFormat(
+    fun mapToDateString(
+        date: Date,
+        locale: Locale = getDefault(),
+    ): String = SimpleDateFormat(
         resources.getString(R.string.app_date_format),
-        getDefault(),
-    )
+        locale,
+    ).format(date)
 
 }

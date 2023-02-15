@@ -11,6 +11,7 @@ data class Error(
 ) : AppointmentModel()
 
 data class Success(
+    val hour: String,
     val date: String,
     val location: String?,
     val description: String,

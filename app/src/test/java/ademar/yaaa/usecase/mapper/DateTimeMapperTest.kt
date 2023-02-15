@@ -23,37 +23,37 @@ class DateTimeMapperTest {
     }
 
     @Test
-    fun mapToString_englishLocale_returnsCorrectString() {
-        whenever(resources.getString(any())).thenReturn(patternEnglish)
-        val result = mapper.mapToString(date)
-        assertEquals(stringEnglish, result)
+    fun mapToHourString_englishLocale_returnsCorrectString() {
+        whenever(resources.getString(any())).thenReturn("h:mm a")
+        val result = mapper.mapToHourString(date)
+        assertEquals(hourEnglish, result)
     }
 
     @Test
-    fun mapToString_portugueseLocale_returnsCorrectString() {
-        whenever(resources.getString(any())).thenReturn(patternPortuguese)
-        val result = mapper.mapToString(date)
-        assertEquals(stringPortuguese, result)
+    fun mapToDateString_englishLocale_returnsCorrectString() {
+        whenever(resources.getString(any())).thenReturn("EEE, MMM d, yyyy")
+        val result = mapper.mapToDateString(date)
+        assertEquals(dateEnglish, result)
     }
 
     @Test
-    fun mapToDate_englishLocale_returnsCorrectDate() {
-        whenever(resources.getString(any())).thenReturn(patternEnglish)
-        val result = mapper.mapToDate(stringEnglish)
-        assertEquals(date, result)
+    fun mapToHourString_portugueseLocale_returnsCorrectString() {
+        whenever(resources.getString(any())).thenReturn("HH:mm")
+        val result = mapper.mapToHourString(date, Locale("pt", "BR"))
+        assertEquals(hourPortuguese, result)
     }
 
     @Test
-    fun mapToDate_portugueseLocale_returnsCorrectDate() {
-        whenever(resources.getString(any())).thenReturn(patternPortuguese)
-        val result = mapper.mapToDate(stringPortuguese)
-        assertEquals(date, result)
+    fun mapToDateString_portugueseLocale_returnsCorrectString() {
+        whenever(resources.getString(any())).thenReturn("EEE, d 'de' MMM 'de' yyyy")
+        val result = mapper.mapToDateString(date, Locale("pt", "BR"))
+        assertEquals(datePortuguese, result)
     }
 
     private val date = Date.from(Instant.ofEpochMilli(1676486460000))
-    private val stringEnglish = "3:41 PM, Feb 15, 2023"
-    private val patternEnglish = "h:mm a',' MMM dd',' yyyy"
-    private val stringPortuguese = "15:41 15/02/2023"
-    private val patternPortuguese = "HH:mm dd/MM/yyyy"
+    private val hourEnglish = "3:41 PM"
+    private val dateEnglish = "Wed, Feb 15, 2023"
+    private val hourPortuguese = "15:41"
+    private val datePortuguese = "qua, 15 de fev de 2023"
 
 }

@@ -40,3 +40,4 @@ Yaaa (Yeap Another Appointment App)
 - [ ] The uses cases are accessing the database directly, an improvement would be to create a repository layer to abstract the database access including an in memory LRU cache.
 - [ ] Placeholders are pure text and a good improvement is to add illustrations to them.
 - [ ] Date and time are using the device time zone, an improvement would be to allow custom time zones.
+- [ ] Integrate the appointments with the alarm manager.

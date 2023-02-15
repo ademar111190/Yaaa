@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Yaaa</string>
-    <string name="app_date_format">HH:mm dd/MM/yyyy</string>
+    <string name="app_hour_format">HH:mm</string>
+    <string name="app_date_format">EEE\',\' d \'de\' MMM \'de\' yyyy</string>
     <string name="unknown_location">Localização desconhecida</string>
     <string name="appointments_title">Agendamentos</string>
     <string name="appointments_retry">Tentar novamente</string>

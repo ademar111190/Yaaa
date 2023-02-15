@@ -49,7 +49,8 @@ class AppointmentViewModel @Inject constructor(
         }
 
         model.value = Success(
-            date = dateTimeMapper.mapToString(date),
+            hour = dateTimeMapper.mapToHourString(date),
+            date = dateTimeMapper.mapToDateString(date),
             location = location?.name,
             description = description,
             locationOptions = locationsMap.keys.toSet(),
