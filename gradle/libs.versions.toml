@@ -36,7 +36,7 @@ unitTest = ["coroutinesTest", "logBack", "junit", "junitKtx", "kotlinTest",
     "mockito", "mockitoInline", "mockitoKotlin", "robolectric"]
 
 [plugins]
-androidApp = { id = "com.android.application", version = "7.3.1" }
+androidApp = { id = "com.android.application", version = "7.4.1" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }

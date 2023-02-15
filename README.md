@@ -20,7 +20,7 @@ Yaaa (Yeap Another Appointment App)
 
 - Clone the project
 - Open a terminal in the project folder
-- Run `./gradlew assembleDebug`i
+- Run `./gradlew assembleDebug`
 - Install `adb install app/build/outputs/apk/debug/app-debug.apk`
 
 ## How to test
