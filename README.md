@@ -41,3 +41,7 @@ Yaaa (Yeap Another Appointment App)
 - [ ] Placeholders are pure text and a good improvement is to add illustrations to them.
 - [ ] Date and time are using the device time zone, an improvement would be to allow custom time zones.
 - [ ] Integrate the appointments with the alarm manager.
+- [ ] Save the last used location and use it as a default when creating a new appointment.
+- [ ] Add a splash screen.
+- [ ] Add the option to share the logs
+- [ ] Day and night themes
