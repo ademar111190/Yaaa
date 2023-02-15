@@ -8,7 +8,7 @@ interface LocationDao {
     @Insert
     suspend fun create(location: LocationEntity)
 
-    @Query("SELECT * FROM locations WHERE deleted = 0")
+    @Query("SELECT * FROM locations WHERE deleted = 0 ORDER BY name ASC")
     suspend fun readAll(): List<LocationEntity>
 
     @Query("SELECT * FROM locations WHERE pk = :id")

@@ -1,5 +1,6 @@
 package ademar.yaaa.db
 
+import ademar.yaaa.Dummies.firstLocationEntity
 import ademar.yaaa.Dummies.initialLocationEntities
 import ademar.yaaa.db.location.LocationDao
 import ademar.yaaa.db.location.LocationEntity
@@ -50,12 +51,9 @@ class LocationTest {
         val locations = dao.readAll()
 
         assertEquals(locations.size, 7)
-        assertContentEquals(
-            locations, listOf(
-                *initialLocationEntities(),
-                LocationEntity(7, "New York", false),
-            )
-        )
+        val expected = initialLocationEntities().toMutableList()
+        expected.add(2, LocationEntity(7, "New York", false))
+        assertContentEquals(locations, expected)
     }
 
     @Test
@@ -77,7 +75,7 @@ class LocationTest {
         assertEquals(locations.size, 5)
         assertContentEquals(
             locations, listOf(
-                *initialLocationEntities().drop(1).toTypedArray(),
+                *initialLocationEntities().subtract(setOf(firstLocationEntity)).toTypedArray(),
             )
         )
     }

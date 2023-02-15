@@ -9,22 +9,26 @@ import java.util.*
 
 object Dummies {
 
+    val firstLocation = Location(1, "San Diego")
+
     fun initialLocations() = listOf(
-        Location(1, "San Diego"),
-        Location(2, "St. George"),
-        Location(3, "Park City"),
         Location(4, "Dallas"),
         Location(5, "Memphis"),
         Location(6, "Orlando"),
+        Location(3, "Park City"),
+        firstLocation,
+        Location(2, "St. George"),
     )
 
+    val firstLocationEntity = LocationEntity(1, "San Diego", false)
+
     fun initialLocationEntities() = arrayOf(
-        LocationEntity(1, "San Diego", false),
-        LocationEntity(2, "St. George", false),
-        LocationEntity(3, "Park City", false),
         LocationEntity(4, "Dallas", false),
         LocationEntity(5, "Memphis", false),
         LocationEntity(6, "Orlando", false),
+        LocationEntity(3, "Park City", false),
+        firstLocationEntity,
+        LocationEntity(2, "St. George", false),
     )
 
     fun makeLocation() = Location(
