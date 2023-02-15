@@ -4,6 +4,10 @@
     <string name="unknown_location">Localização desconhecida</string>
     <string name="appointments_title">Agendamentos</string>
     <string name="appointments_retry">Tentar novamente</string>
-    <string name="appointments_placeholder">Nenhum agendamento, toque no botão de adicionar para criar um.</string>
+    <string name="appointments_new">Novo</string>
+    <string name="appointments_placeholder">Nenhum agendamento, toque no botão \"+ Novo\" para criar um.</string>
     <string name="appointments_error_fetching_appointments">Erro ao buscar agendamentos, por favor, tente novamente.</string>
+    <string name="appointment_creation_title">Novo agendamento</string>
+    <string name="appointment_description_hint">Descrição</string>
+    <string name="appointment_save">Salvar</string>
 </resources>

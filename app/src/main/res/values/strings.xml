@@ -4,6 +4,10 @@
     <string name="unknown_location">Unknown Location</string>
     <string name="appointments_title">Appointments</string>
     <string name="appointments_retry">Retry</string>
-    <string name="appointments_placeholder">No appointments, tap the plus button to create one.</string>
+    <string name="appointments_new">New</string>
+    <string name="appointments_placeholder">No appointments, tap the \"+ New\" button to create one.</string>
     <string name="appointments_error_fetching_appointments">Error fetching appointments, please try again.</string>
+    <string name="appointment_creation_title">New Appointment</string>
+    <string name="appointment_description_hint">Description</string>
+    <string name="appointment_save">Save</string>
 </resources>

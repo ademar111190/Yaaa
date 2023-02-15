@@ -2,6 +2,8 @@ package ademar.yaaa.page.appointments
 
 import ademar.yaaa.R
 import ademar.yaaa.databinding.AppointmentsActivityBinding
+import ademar.yaaa.page.appointment.AppointmentActivity
+import android.content.Intent
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
@@ -24,9 +26,12 @@ class AppointmentsActivity : AppCompatActivity() {
         binding.retryButton.setOnClickListener {
             viewModel.load()
         }
+        binding.addButton.setOnClickListener {
+            viewModel.add()
+        }
 
         viewModel.model.observe(this) { model ->
-            log.debug("onChanged: $model")
+            log.debug("onModel: $model")
             when (model) {
                 is Initial -> onLoading()
                 is Loading -> onLoading()
@@ -35,7 +40,21 @@ class AppointmentsActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.command.observe(this) { command ->
+            log.debug("onCommand: $command")
+            when (command) {
+                is NavigateToAppointmentCreation -> startActivity(
+                    Intent(this, AppointmentActivity::class.java)
+                )
+            }
+        }
+
         viewModel.load()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkChanges()
     }
 
     private fun onLoading() {

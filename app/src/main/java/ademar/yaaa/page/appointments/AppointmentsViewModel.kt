@@ -21,6 +21,7 @@ class AppointmentsViewModel @Inject constructor(
 
     private val log = LoggerFactory.getLogger("AppointmentsViewModel")
     val model = MutableLiveData<AppointmentsModel>(Initial)
+    val command = MutableLiveData<AppointmentsCommand>()
 
     fun load() = viewModelScope.launch {
         log.debug("load")
@@ -32,6 +33,21 @@ class AppointmentsViewModel @Inject constructor(
             log.error("Error fetching appointments", e)
             model.value = Error(resources.getString(R.string.appointments_error_fetching_appointments))
         }
+    }
+
+    fun checkChanges() = viewModelScope.launch {
+        log.debug("checkChanges")
+        try {
+            val appointments = fetchAppointments.allAppointments()
+            model.value = Success(appointments)
+        } catch (e: Exception) {
+            log.error("Error fetching appointments", e)
+        }
+    }
+
+    fun add() {
+        log.debug("add")
+        command.value = NavigateToAppointmentCreation
     }
 
 }
