@@ -16,6 +16,12 @@ class AppointmentActivity : AppCompatActivity() {
     private val viewModel by viewModels<AppointmentViewModel>()
     private lateinit var binding: AppointmentActivityBinding
 
+    private val spinnerAdapter by lazy {
+        AppointmentLocationsSpinnerAdapter(this) { newLocation ->
+            viewModel.updateLocation(newLocation)
+        }
+    }
+
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         binding = AppointmentActivityBinding.inflate(layoutInflater)
@@ -27,11 +33,17 @@ class AppointmentActivity : AppCompatActivity() {
         binding.description.addTextChangedListener { text ->
             viewModel.updateDescription(text.toString())
         }
+        binding.locations.apply {
+            adapter = spinnerAdapter
+            onItemSelectedListener = spinnerAdapter
+        }
 
         viewModel.model.observe(this) { model ->
             log.debug("onModel: $model")
             when (model) {
                 is Initial -> onLoading()
+                is Loading -> onLoading()
+                is Error -> onError(model)
                 is Success -> onSuccess(model)
             }
         }
@@ -48,13 +60,23 @@ class AppointmentActivity : AppCompatActivity() {
 
     private fun onLoading() {
         binding.contentGroup.visibility = GONE
+        binding.errorGroup.visibility = GONE
         binding.loadGroup.visibility = VISIBLE
+    }
+
+    private fun onError(model: Error) {
+        binding.loadGroup.visibility = GONE
+        binding.contentGroup.visibility = GONE
+        binding.errorGroup.visibility = VISIBLE
+        binding.message.text = model.message
     }
 
     private fun onSuccess(model: Success) {
         binding.loadGroup.visibility = GONE
+        binding.errorGroup.visibility = GONE
         binding.contentGroup.visibility = VISIBLE
         binding.description.setText(model.description)
+        spinnerAdapter.updateLocations(model.locationOptions)
     }
 
 }
