@@ -19,3 +19,8 @@ data class AnnounceSaveSuccess(
     val message: String,
     val action: String,
 ) : AppointmentCommand()
+
+data class AnnounceDeleteSuccess(
+    val message: String,
+    val action: String,
+) : AppointmentCommand()

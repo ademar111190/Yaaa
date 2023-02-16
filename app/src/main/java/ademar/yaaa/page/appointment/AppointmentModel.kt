@@ -19,6 +19,7 @@ data class Success(
     val locationIndex: Int,
     val saveStatus: SaveStatus,
     val saveLabel: String,
+    val deleteEnabled: Boolean,
 ) : AppointmentModel()
 
 enum class SaveStatus {

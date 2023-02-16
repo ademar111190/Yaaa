@@ -175,6 +175,45 @@ class AppointmentViewModel @Inject constructor(
         )
     }
 
+    fun savedAction() {
+        log.debug("savedAction")
+        command.value = NavigateBack
+    }
+
+    fun delete() = viewModelScope.launch {
+        log.debug("delete")
+
+        val validAppointmentId = appointmentId
+        if (validAppointmentId == null) {
+            log.error("Error deleting appointment: appointmentId is null")
+            model.value = Error(resources.getString(R.string.appointment_error_failed_to_delete))
+            return@launch
+        }
+
+        try {
+            createAppointment.deleteAppointment(validAppointmentId)
+        } catch (e: Exception) {
+            log.error("Error deleting appointment", e)
+            model.value = Error(resources.getString(R.string.appointment_error_failed_to_delete))
+            return@launch
+        }
+        appointmentId = null
+
+        command.value = AnnounceDeleteSuccess(
+            message = resources.getString(R.string.appointment_deleted),
+            action = resources.getString(R.string.appointment_deleted_undo),
+        )
+
+        model.value = success(
+            saveStatus = SaveStatus.NOT_SAVED,
+        )
+    }
+
+    fun deletedAction() {
+        log.debug("deleteAction")
+        save()
+    }
+
     fun back() {
         log.debug("back")
         command.value = NavigateBack
@@ -193,6 +232,7 @@ class AppointmentViewModel @Inject constructor(
         saveLabel = appointmentId?.let {
             resources.getString(R.string.appointment_save_update)
         } ?: resources.getString(R.string.appointment_save_create),
+        deleteEnabled = appointmentId != null,
     )
 
 }

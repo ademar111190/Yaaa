@@ -92,7 +92,7 @@ class CreateAppointmentTest {
         val appointment = makeAppointment()
         whenever(appointmentMapper.mapToAppointmentEntity(appointment)).thenReturn(makeAppointmentEntity())
 
-        usecase.deleteAppointment(appointment)
+        usecase.deleteAppointment(appointment.id)
     }
 
 }

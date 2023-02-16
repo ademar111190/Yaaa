@@ -99,7 +99,7 @@ class AppointmentTest {
     fun delete_readAll_shouldNotContainDeletedAppointment() = runTest {
         val appointment = makeAppointmentEntity()
         dao.createOrUpdate(appointment)
-        dao.delete(appointment)
+        dao.delete(appointment.id)
 
         val appointments = dao.readAll()
 

@@ -54,6 +54,9 @@ class AppointmentActivity : AppCompatActivity() {
         binding.hour.setOnClickListener {
             viewModel.changeHour()
         }
+        binding.delete.setOnClickListener {
+            viewModel.delete()
+        }
         binding.save.setOnClickListener {
             viewModel.save()
         }
@@ -75,6 +78,7 @@ class AppointmentActivity : AppCompatActivity() {
                 is NavigateToDatePicker -> onDatePicker(command)
                 is NavigateToTimePicker -> onTimePicker(command)
                 is AnnounceSaveSuccess -> onAnnounceSaveSuccess(command)
+                is AnnounceDeleteSuccess -> onAnnounceDeleteSuccess(command)
             }
         }
 
@@ -114,7 +118,19 @@ class AppointmentActivity : AppCompatActivity() {
             Snackbar.LENGTH_LONG,
         )
         snackbar.setAction(command.action) {
-            viewModel.back()
+            viewModel.savedAction()
+        }
+        snackbar.show()
+    }
+
+    private fun onAnnounceDeleteSuccess(command: AnnounceDeleteSuccess) {
+        val snackbar = Snackbar.make(
+            binding.root,
+            command.message,
+            Snackbar.LENGTH_LONG,
+        )
+        snackbar.setAction(command.action) {
+            viewModel.deletedAction()
         }
         snackbar.show()
     }
@@ -183,6 +199,7 @@ class AppointmentActivity : AppCompatActivity() {
                 binding.hour.isEnabled = true
             }
         }
+        binding.delete.visibility = if (model.deleteEnabled) VISIBLE else GONE
     }
 
     companion object {

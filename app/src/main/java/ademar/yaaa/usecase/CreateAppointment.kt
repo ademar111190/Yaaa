@@ -36,10 +36,8 @@ class CreateAppointment @Inject constructor(
         return appointmentMapper.mapToAppointment(entity, location)
     }
 
-    suspend fun deleteAppointment(appointment: Appointment) {
-        appDatabase.appointmentDao().delete(
-            appointmentMapper.mapToAppointmentEntity(appointment),
-        )
+    suspend fun deleteAppointment(id: Long) {
+        appDatabase.appointmentDao().delete(id)
     }
 
 }

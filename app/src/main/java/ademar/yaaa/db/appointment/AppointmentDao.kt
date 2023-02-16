@@ -21,7 +21,7 @@ interface AppointmentDao {
     @Query("SELECT * FROM appointments WHERE appointments.location_fk IN (:locationIds)")
     suspend fun read(locationIds: List<Long>): List<AppointmentEntity>
 
-    @Delete
-    suspend fun delete(appointment: AppointmentEntity)
+    @Query("DELETE FROM appointments WHERE appointments.pk = :id")
+    suspend fun delete(id: Long)
 
 }
