@@ -2,10 +2,7 @@ package ademar.yaaa.page.appointment
 
 import ademar.yaaa.R
 import ademar.yaaa.data.Location
-import ademar.yaaa.usecase.CreateAppointment
-import ademar.yaaa.usecase.DateCreator
-import ademar.yaaa.usecase.FetchAppointments
-import ademar.yaaa.usecase.FetchLocations
+import ademar.yaaa.usecase.*
 import ademar.yaaa.usecase.mapper.DateTimeMapper
 import android.app.Application
 import android.content.res.Resources
@@ -26,6 +23,7 @@ class AppointmentViewModel @Inject constructor(
     private val fetchAppointments: FetchAppointments,
     private val fetchLocations: FetchLocations,
     private val createAppointment: CreateAppointment,
+    private val preferences: Preferences,
 ) : AndroidViewModel(application) {
 
     private val log = LoggerFactory.getLogger("AppointmentViewModel")
@@ -49,6 +47,7 @@ class AppointmentViewModel @Inject constructor(
             locations.forEach { location ->
                 locationsMap[location.name] = location
             }
+            location = locationsMap[preferences.lastUsedLocation()]
         } catch (e: Exception) {
             log.error("Error fetching locations", e)
             model.value = Error(resources.getString(R.string.appointment_error_fetching_locations))
@@ -95,6 +94,7 @@ class AppointmentViewModel @Inject constructor(
 
     fun updateLocation(newLocation: String?) {
         log.debug("updateLocation: $newLocation")
+        newLocation?.let { preferences.saveLastUsedLocation(it) }
         if (newLocation == location?.name) {
             return
         }
