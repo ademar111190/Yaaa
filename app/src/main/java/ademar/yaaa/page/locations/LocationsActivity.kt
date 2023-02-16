@@ -1,16 +1,20 @@
 package ademar.yaaa.page.locations
 
 import ademar.yaaa.R
+import ademar.yaaa.databinding.AddLocationDialogBinding
 import ademar.yaaa.databinding.LocationsActivityBinding
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.slf4j.LoggerFactory
 
@@ -57,10 +61,55 @@ class LocationsActivity : AppCompatActivity() {
             log.debug("onCommand: $command")
             when (command) {
                 is NavigateBack -> finish()
+                is NavigateToAddLocation -> openAddLocationDialog(command)
+                is AnnounceSaveError -> onAnnounceSaveError(command)
+                is AnnounceSaveSuccess -> onAnnounceSaveSuccess(command)
             }
         }
 
         viewModel.load()
+    }
+
+    private fun openAddLocationDialog(command: NavigateToAddLocation) {
+        val inflater = LayoutInflater.from(this)
+        val dialogBinding = AddLocationDialogBinding.inflate(inflater)
+        dialogBinding.name.setText(command.name)
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.add_location_title)
+            .setView(dialogBinding.root)
+            .setPositiveButton(R.string.add_location_save) { _, _ ->
+                val name = dialogBinding.name.text.toString()
+                viewModel.addLocation(name)
+            }
+            .setNegativeButton(R.string.add_location_cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun onAnnounceSaveError(command: AnnounceSaveError) {
+        val snackbar = Snackbar.make(
+            binding.root,
+            command.message,
+            Snackbar.LENGTH_LONG,
+        )
+        snackbar.setAction(command.action) {
+            viewModel.errorAction()
+        }
+        snackbar.show()
+    }
+
+    private fun onAnnounceSaveSuccess(command: AnnounceSaveSuccess) {
+        val snackbar = Snackbar.make(
+            binding.root,
+            command.message,
+            Snackbar.LENGTH_LONG,
+        )
+        snackbar.setAction(command.action) {
+            viewModel.savedAction()
+        }
+        snackbar.show()
     }
 
     private fun onLoading() {

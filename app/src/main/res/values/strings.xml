@@ -35,4 +35,13 @@
     <string name="locations_new">Add Location</string>
     <string name="locations_delete">Delete Location</string>
     <string name="locations_error_fetching_locations">Error fetching locations.</string>
+    <string name="add_location_title">Add Location</string>
+    <string name="add_location_name_hint">Location Name</string>
+    <string name="add_location_save">Save Location</string>
+    <string name="add_location_saved">Location saved.</string>
+    <string name="add_location_saved_leave_edition">Finish edition</string>
+    <string name="add_location_saved_failed_action">Back to edition</string>
+    <string name="add_location_cancel">Cancel</string>
+    <string name="add_location_error_invalid_name">Invalid location name.</string>
+    <string name="add_location_error_failed_to_save">Failed to save location.</string>
 </resources>

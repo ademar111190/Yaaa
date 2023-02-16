@@ -35,4 +35,13 @@
     <string name="locations_new">Adicionar local</string>
     <string name="locations_delete">Deletar local</string>
     <string name="locations_error_fetching_locations">Erro ao buscar os locais.</string>
+    <string name="add_location_title">Novo local</string>
+    <string name="add_location_name_hint">Nome do local</string>
+    <string name="add_location_save">Salvar local</string>
+    <string name="add_location_saved">Local salvo.</string>
+    <string name="add_location_saved_leave_edition">Finalizar edição</string>
+    <string name="add_location_saved_failed_action">Voltar para a edição</string>
+    <string name="add_location_cancel">Cancelar</string>
+    <string name="add_location_error_invalid_name">O nome do local é inválido.</string>
+    <string name="add_location_error_failed_to_save">Falha ao salvar o local.</string>
 </resources>

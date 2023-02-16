@@ -2,6 +2,7 @@ package ademar.yaaa.page.locations
 
 import ademar.yaaa.R
 import ademar.yaaa.data.Location
+import ademar.yaaa.usecase.CreateLocation
 import ademar.yaaa.usecase.FetchLocations
 import android.app.Application
 import android.content.res.Resources
@@ -18,6 +19,7 @@ class LocationsViewModel @Inject constructor(
     application: Application,
     private val resources: Resources,
     private val fetchLocations: FetchLocations,
+    private val createLocation: CreateLocation,
 ) : AndroidViewModel(application) {
 
     private val log = LoggerFactory.getLogger("LocationsViewModel")
@@ -25,6 +27,7 @@ class LocationsViewModel @Inject constructor(
     val command = MutableLiveData<LocationsCommand>()
 
     private var locationsById = mutableMapOf<Long, Location>()
+    private var lastTriedLocationName = ""
 
     fun load() = viewModelScope.launch {
         log.debug("load")
@@ -41,16 +44,44 @@ class LocationsViewModel @Inject constructor(
             return@launch
         }
 
-        model.value = Success(locationsById.values.map { location ->
-            LocationModel(
-                id = location.id,
-                name = location.name,
-            )
-        })
+        model.value = success()
     }
 
     fun add() {
         log.debug("add")
+        command.value = NavigateToAddLocation("")
+    }
+
+    fun addLocation(name: String) = viewModelScope.launch {
+        log.debug("addLocation: $name")
+        lastTriedLocationName = name
+
+        if (name.isBlank()) {
+            log.error("addLocation: name is blank")
+            command.value = AnnounceSaveError(
+                message = resources.getString(R.string.add_location_error_invalid_name),
+                action = resources.getString(R.string.add_location_saved_failed_action),
+            )
+            return@launch
+        }
+
+        try {
+            val location = createLocation.createLocation(name = name.trim())
+            locationsById[location.id] = location
+            model.value = success()
+        } catch (e: Exception) {
+            log.error("Error creating location", e)
+            command.value = AnnounceSaveError(
+                message = resources.getString(R.string.add_location_error_failed_to_save),
+                action = resources.getString(R.string.add_location_saved_failed_action),
+            )
+            return@launch
+        }
+
+        command.value = AnnounceSaveSuccess(
+            message = resources.getString(R.string.add_location_saved),
+            action = resources.getString(R.string.add_location_saved_leave_edition),
+        )
     }
 
     fun locationDeleteTapped(id: Long) {
@@ -61,5 +92,24 @@ class LocationsViewModel @Inject constructor(
         log.debug("back")
         command.value = NavigateBack
     }
+
+    fun savedAction() {
+        log.debug("savedAction")
+        command.value = NavigateBack
+    }
+
+    fun errorAction() {
+        log.debug("errorAction")
+        command.value = NavigateToAddLocation(lastTriedLocationName)
+    }
+
+    private fun success() = Success(
+        locationsById.values.sortedBy { it.name }.map { location ->
+            LocationModel(
+                id = location.id,
+                name = location.name,
+            )
+        },
+    )
 
 }
