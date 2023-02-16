@@ -89,6 +89,14 @@ class LocationsViewModel @Inject constructor(
     fun locationDeleteTapped(id: Long) = viewModelScope.launch {
         log.debug("locationDeleteTapped: $id")
 
+        if (locationsById.size == 1) {
+            log.error("only one location")
+            command.value = AnnounceDeleteError(
+                message = resources.getString(R.string.add_location_delete_last),
+            )
+            return@launch
+        }
+
         val removed = locationsById.remove(id)
         if (removed == null) {
             log.error("location not found")

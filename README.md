@@ -32,7 +32,7 @@ Yaaa (Yeap Another Appointment App)
 
 - The app uses the adaptative icon with material you enabled and day nigth theme, so it will look different in different devices.
 - The list of libraries can be found in the [`gradle/libs.versions.toml`](gradle/libs.versions.toml) file.
-- The app contains translations for English and Portuguese.
+- The app contains translations for English and Portuguese, including Hour formats, Date formats, and Weekday names.
 - Shortcuts to easy create an appointment, see the appointments or edit locations are available in the launcher.
 - Location edition is available in the app.
 

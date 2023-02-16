@@ -229,6 +229,9 @@ class AppointmentViewModel @Inject constructor(
     private fun success(
         saveStatus: SaveStatus,
     ) = Success(
+        title = appointmentId?.let {
+            resources.getString(R.string.appointment_creation_title_edition)
+        } ?: resources.getString(R.string.appointment_creation_title),
         hour = dateTimeMapper.mapToHourString(dateTime),
         date = dateTimeMapper.mapToDateString(dateTime),
         location = location?.name,

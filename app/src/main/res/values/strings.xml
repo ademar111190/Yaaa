@@ -11,6 +11,7 @@
     <string name="appointments_menu_edit_locations">Edit locations</string>
     <string name="appointments_menu_share_logs">Share logs</string>
     <string name="appointment_creation_title">New Appointment</string>
+    <string name="appointment_creation_title_edition">Edit Appointment</string>
     <string name="appointment_description_hint">Description</string>
     <string name="appointment_location_hint">Location:</string>
     <string name="appointment_date_hint">Date and time:</string>
@@ -37,6 +38,7 @@
     <string name="locations_delete">Delete Location</string>
     <string name="locations_error_fetching_locations">Error fetching locations.</string>
     <string name="add_location_title">Add Location</string>
+    <string name="add_location_title_edition">Edit Location</string>
     <string name="add_location_name_hint">Location Name</string>
     <string name="add_location_save">Save Location</string>
     <string name="add_location_saved">Location saved.</string>
@@ -45,6 +47,7 @@
     <string name="add_location_cancel">Cancel</string>
     <string name="add_location_error_invalid_name">Invalid location name.</string>
     <string name="add_location_error_failed_to_save">Failed to save location.</string>
+    <string name="add_location_delete_last">It is not possible to delete the last location.</string>
     <string name="add_location_delete_error">Failed to delete location.</string>
     <string name="add_location_delete_success">Location deleted.</string>
     <string name="add_location_delete_success_undo">Undo</string>

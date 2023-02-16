@@ -37,7 +37,8 @@
         <activity
             android:name=".page.appointment.AppointmentActivity"
             android:exported="false"
-            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar" />
+            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".page.locations.LocationsActivity"

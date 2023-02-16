@@ -103,7 +103,7 @@ class LocationsActivity : AppCompatActivity() {
         dialogBinding.name.setText(command.name)
 
         AlertDialog.Builder(this)
-            .setTitle(R.string.add_location_title)
+            .setTitle(R.string.add_location_title_edition)
             .setView(dialogBinding.root)
             .setPositiveButton(R.string.add_location_save) { _, _ ->
                 val name = dialogBinding.name.text.toString()

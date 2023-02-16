@@ -11,6 +11,7 @@
     <string name="appointments_menu_edit_locations">Editar locais</string>
     <string name="appointments_menu_share_logs">Compartilhar logs</string>
     <string name="appointment_creation_title">Novo agendamento</string>
+    <string name="appointment_creation_title_edition">Editar agendamento</string>
     <string name="appointment_description_hint">Descrição</string>
     <string name="appointment_location_hint">Local:</string>
     <string name="appointment_date_hint">Data e hora:</string>
@@ -37,6 +38,7 @@
     <string name="locations_delete">Deletar local</string>
     <string name="locations_error_fetching_locations">Erro ao buscar os locais.</string>
     <string name="add_location_title">Novo local</string>
+    <string name="add_location_title_edition">Editar local</string>
     <string name="add_location_name_hint">Nome do local</string>
     <string name="add_location_save">Salvar local</string>
     <string name="add_location_saved">Local salvo.</string>
@@ -45,6 +47,7 @@
     <string name="add_location_cancel">Cancelar</string>
     <string name="add_location_error_invalid_name">O nome do local é inválido.</string>
     <string name="add_location_error_failed_to_save">Falha ao salvar o local.</string>
+    <string name="add_location_delete_last">Não é possível deletar o último local.</string>
     <string name="add_location_delete_error">Falha ao deletar o local.</string>
     <string name="add_location_delete_success">Local deletado.</string>
     <string name="add_location_delete_success_undo">Desfazer</string>

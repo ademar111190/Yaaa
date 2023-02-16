@@ -153,6 +153,7 @@ class AppointmentActivity : AppCompatActivity() {
         binding.errorGroup.visibility = GONE
         binding.contentGroup.visibility = VISIBLE
 
+        binding.toolbar.title = model.title
         if (!descriptionInEdition) {
             binding.description.setText(model.description)
         }
