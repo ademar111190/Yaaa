@@ -2,7 +2,7 @@ package ademar.yaaa
 
 import ademar.yaaa.page.appointment.AppointmentActivity
 import ademar.yaaa.page.appointments.AppointmentsActivity
-import android.content.Intent
+import ademar.yaaa.page.locations.LocationsActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -12,12 +12,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         when (intent?.action) {
-            "ademar.yaaa.create_appointment" -> startCreateAppointmentActivity()
             "ademar.yaaa.appointments" -> startAppointmentsActivity()
+            "ademar.yaaa.create_appointment" -> startCreateAppointmentActivity()
+            "ademar.yaaa.edit_locations" -> startEditLocationsActivity()
             else -> startAppointmentsActivity()
         }
 
         finish()
+    }
+
+    private fun startAppointmentsActivity() {
+        startActivity(AppointmentsActivity.newIntent(this))
     }
 
     private fun startCreateAppointmentActivity() {
@@ -25,8 +30,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(AppointmentActivity.newIntent(this))
     }
 
-    private fun startAppointmentsActivity() {
-        startActivity(Intent(this, AppointmentsActivity::class.java))
+    private fun startEditLocationsActivity() {
+        startAppointmentsActivity()
+        startActivity(LocationsActivity.newIntent(this))
     }
 
 }

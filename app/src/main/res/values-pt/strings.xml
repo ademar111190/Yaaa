@@ -8,6 +8,7 @@
     <string name="appointments_new">Novo</string>
     <string name="appointments_placeholder">Nenhum agendamento, toque no botão \"+ Novo\" para criar um.</string>
     <string name="appointments_error_fetching_appointments">Erro ao buscar agendamentos, por favor, tente novamente.</string>
+    <string name="appointments_menu_edit_locations">Editar locais</string>
     <string name="appointment_creation_title">Novo agendamento</string>
     <string name="appointment_description_hint">Descrição</string>
     <string name="appointment_location_hint">Local:</string>
@@ -28,4 +29,6 @@
     <string name="appointment_error_failed_to_save">Falha ao salvar o agendamento.</string>
     <string name="shortcut_appointments">Agendamentos</string>
     <string name="shortcut_create_appointment">Criar agendamento</string>
+    <string name="shortcut_edit_locations">Editar locais</string>
+    <string name="locations_title">Locais</string>
 </resources>

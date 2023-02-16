@@ -39,6 +39,11 @@
             android:exported="false"
             android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar" />
 
+        <activity
+            android:name=".page.locations.LocationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="ademar.yaaa.fileprovider"

@@ -8,6 +8,7 @@
     <string name="appointments_new">New</string>
     <string name="appointments_placeholder">No appointments, tap the \"+ New\" button to create one.</string>
     <string name="appointments_error_fetching_appointments">Error fetching appointments, please try again.</string>
+    <string name="appointments_menu_edit_locations">Edit locations</string>
     <string name="appointment_creation_title">New Appointment</string>
     <string name="appointment_description_hint">Description</string>
     <string name="appointment_location_hint">Location:</string>
@@ -28,4 +29,6 @@
     <string name="appointment_error_failed_to_save">Failed to save appointment.</string>
     <string name="shortcut_appointments">Appointments</string>
     <string name="shortcut_create_appointment">Create Appointment</string>
+    <string name="shortcut_edit_locations">Edit Locations</string>
+    <string name="locations_title">Locations</string>
 </resources>

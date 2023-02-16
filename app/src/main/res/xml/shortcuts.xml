@@ -27,4 +27,16 @@
             android:targetPackage="ademar.yaaa" />
     </shortcut>
 
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_edit_location"
+        android:shortcutId="settings"
+        android:shortcutLongLabel="@string/shortcut_edit_locations"
+        android:shortcutShortLabel="@string/shortcut_edit_locations">
+        <intent
+            android:action="ademar.yaaa.edit_locations"
+            android:targetClass="ademar.yaaa.MainActivity"
+            android:targetPackage="ademar.yaaa" />
+    </shortcut>
+
 </shortcuts>

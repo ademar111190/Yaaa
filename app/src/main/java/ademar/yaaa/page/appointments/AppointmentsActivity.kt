@@ -3,6 +3,8 @@ package ademar.yaaa.page.appointments
 import ademar.yaaa.R
 import ademar.yaaa.databinding.AppointmentsActivityBinding
 import ademar.yaaa.page.appointment.AppointmentActivity
+import ademar.yaaa.page.locations.LocationsActivity
+import android.content.Intent
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
@@ -27,6 +29,15 @@ class AppointmentsActivity : AppCompatActivity() {
         binding = AppointmentsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.edit_locations -> {
+                    viewModel.editLocations()
+                    true
+                }
+                else -> false
+            }
+        }
         binding.retryButton.setOnClickListener {
             viewModel.load()
         }
@@ -51,6 +62,7 @@ class AppointmentsActivity : AppCompatActivity() {
             when (command) {
                 is NavigateToAppointmentCreation -> startActivity(AppointmentActivity.newIntent(this))
                 is NavigateToAppointmentDetails -> startActivity(AppointmentActivity.newIntent(this, command.id))
+                is NavigateToLocations -> startActivity(LocationsActivity.newIntent(this))
             }
         }
 
@@ -89,6 +101,14 @@ class AppointmentsActivity : AppCompatActivity() {
             binding.contentGroup.visibility = VISIBLE
         }
         adapter.update(model.appointments)
+    }
+
+    companion object {
+
+        fun newIntent(
+            context: android.content.Context,
+        ) = Intent(context, AppointmentsActivity::class.java)
+
     }
 
 }

@@ -68,4 +68,9 @@ class AppointmentsViewModel @Inject constructor(
         command.value = NavigateToAppointmentDetails(id)
     }
 
+    fun editLocations() {
+        log.debug("editLocations")
+        command.value = NavigateToLocations
+    }
+
 }
