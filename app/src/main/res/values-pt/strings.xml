@@ -49,4 +49,6 @@
     <string name="add_location_delete_success_undo">Desfazer</string>
     <string name="add_location_delete_success_undo_success">O local foi restaurado.</string>
     <string name="add_location_delete_success_undo_error">Falha ao desfazer a ação.</string>
+    <string name="add_location_edition_error">Falha ao editar o local.</string>
+    <string name="add_location_edition_success">Local editado.</string>
 </resources>

@@ -29,6 +29,7 @@ class LocationsViewModel @Inject constructor(
     private var locationsById = mutableMapOf<Long, Location>()
     private var lastTriedLocationName = ""
     private var deletedId: Long? = null
+    private var editedId: Long? = null
 
     fun load() = viewModelScope.launch {
         log.debug("load")
@@ -158,6 +159,62 @@ class LocationsViewModel @Inject constructor(
     fun errorAction() {
         log.debug("errorAction")
         command.value = NavigateToAddLocation(lastTriedLocationName)
+    }
+
+    fun locationEditionTapped(id: Long) {
+        log.debug("locationEditionTapped: $id")
+        editedId = id
+
+        val location = locationsById[id]
+        if (location == null) {
+            log.error("location not found")
+            command.value = AnnounceEditionError(
+                message = resources.getString(R.string.add_location_edition_error),
+            )
+            return
+        }
+
+        command.value = NavigateToEditLocation(location.name)
+    }
+
+    fun locationEdited(name: String) = viewModelScope.launch {
+        log.debug("locationEdited: $name")
+        lastTriedLocationName = name
+
+        val id = editedId
+        if (id == null) {
+            log.error("id is null")
+            command.value = AnnounceEditionError(
+                message = resources.getString(R.string.add_location_edition_error),
+            )
+            return@launch
+        }
+
+        if (name.isBlank()) {
+            log.error("name is blank")
+            command.value = AnnounceEditionError(
+                message = resources.getString(R.string.add_location_error_invalid_name),
+            )
+            return@launch
+        }
+
+        try {
+            createLocation.updateLocation(id, name)
+            val location = fetchLocations.locationById(id)
+            locationsById[location.id] = location
+        } catch (e: Exception) {
+            log.error("Error creating location", e)
+            command.value = AnnounceEditionError(
+                message = resources.getString(R.string.add_location_edition_error),
+            )
+            return@launch
+        }
+
+        command.value = AnnounceEditionSuccess(
+            message = resources.getString(R.string.add_location_edition_success),
+        )
+
+        model.value = success()
     }
 
     private fun success() = Success(

@@ -39,4 +39,14 @@ class CreateLocation @Inject constructor(
         appDatabase.locationDao().undelete(id)
     }
 
+    suspend fun updateLocation(id: Long, name: String) {
+        appDatabase.locationDao().createOrUpdate(
+            LocationEntity(
+                id = id,
+                name = name,
+                deleted = false,
+            )
+        )
+    }
+
 }

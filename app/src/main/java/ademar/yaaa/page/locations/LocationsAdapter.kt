@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class LocationsAdapter(
+    private val onItemEditionClick: (Long) -> Unit,
     private val onItemDeleteClick: (Long) -> Unit,
 ) : RecyclerView.Adapter<LocationsViewHolder>() {
 
@@ -29,7 +30,7 @@ class LocationsAdapter(
     ): LocationsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemBinding = LocationViewHolderBinding.inflate(inflater, parent, false)
-        return LocationsViewHolder(itemBinding, onItemDeleteClick)
+        return LocationsViewHolder(itemBinding, onItemEditionClick, onItemDeleteClick)
     }
 
     override fun getItemCount(): Int = locations.size

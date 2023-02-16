@@ -8,6 +8,10 @@ data class NavigateToAddLocation(
     val name: String,
 ) : LocationsCommand()
 
+data class NavigateToEditLocation(
+    val name: String,
+) : LocationsCommand()
+
 data class AnnounceSaveError(
     val message: String,
     val action: String,
@@ -28,5 +32,13 @@ data class AnnounceDeleteSuccess(
 ) : LocationsCommand()
 
 data class AnnounceUndoResult(
+    val message: String,
+) : LocationsCommand()
+
+data class AnnounceEditionError(
+    val message: String,
+) : LocationsCommand()
+
+data class AnnounceEditionSuccess(
     val message: String,
 ) : LocationsCommand()

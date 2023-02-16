@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import dagger.hilt.android.AndroidEntryPoint
 import org.slf4j.LoggerFactory
 
@@ -25,9 +26,11 @@ class LocationsActivity : AppCompatActivity() {
     private val viewModel by viewModels<LocationsViewModel>()
     private lateinit var binding: LocationsActivityBinding
 
-    private val adapter = LocationsAdapter { id ->
+    private val adapter = LocationsAdapter({ id ->
+        viewModel.locationEditionTapped(id)
+    }, { id ->
         viewModel.locationDeleteTapped(id)
-    }
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,11 +65,14 @@ class LocationsActivity : AppCompatActivity() {
             when (command) {
                 is NavigateBack -> finish()
                 is NavigateToAddLocation -> openAddLocationDialog(command)
+                is NavigateToEditLocation -> openEditLocationDialog(command)
                 is AnnounceSaveError -> onAnnounceSaveError(command)
                 is AnnounceSaveSuccess -> onAnnounceSaveSuccess(command)
-                is AnnounceDeleteError -> onAnnounceDeleteError(command)
+                is AnnounceDeleteError -> simpleFeedback(command.message)
                 is AnnounceDeleteSuccess -> onAnnounceDeleteSuccess(command)
-                is AnnounceUndoResult -> onAnnounceUndoResult(command)
+                is AnnounceUndoResult -> simpleFeedback(command.message)
+                is AnnounceEditionSuccess -> simpleFeedback(command.message)
+                is AnnounceEditionError -> simpleFeedback(command.message)
             }
         }
 
@@ -91,12 +97,26 @@ class LocationsActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun openEditLocationDialog(command: NavigateToEditLocation) {
+        val inflater = LayoutInflater.from(this)
+        val dialogBinding = AddLocationDialogBinding.inflate(inflater)
+        dialogBinding.name.setText(command.name)
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.add_location_title)
+            .setView(dialogBinding.root)
+            .setPositiveButton(R.string.add_location_save) { _, _ ->
+                val name = dialogBinding.name.text.toString()
+                viewModel.locationEdited(name)
+            }
+            .setNegativeButton(R.string.add_location_cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
     private fun onAnnounceSaveError(command: AnnounceSaveError) {
-        val snackbar = Snackbar.make(
-            binding.root,
-            command.message,
-            Snackbar.LENGTH_LONG,
-        )
+        val snackbar = Snackbar.make(binding.root, command.message, LENGTH_LONG)
         snackbar.setAction(command.action) {
             viewModel.errorAction()
         }
@@ -104,45 +124,23 @@ class LocationsActivity : AppCompatActivity() {
     }
 
     private fun onAnnounceSaveSuccess(command: AnnounceSaveSuccess) {
-        val snackbar = Snackbar.make(
-            binding.root,
-            command.message,
-            Snackbar.LENGTH_LONG,
-        )
+        val snackbar = Snackbar.make(binding.root, command.message, LENGTH_LONG)
         snackbar.setAction(command.action) {
             viewModel.savedAction()
         }
         snackbar.show()
     }
 
-    private fun onAnnounceDeleteError(command: AnnounceDeleteError) {
-        val snackbar = Snackbar.make(
-            binding.root,
-            command.message,
-            Snackbar.LENGTH_LONG,
-        )
-        snackbar.show()
-    }
-
     private fun onAnnounceDeleteSuccess(command: AnnounceDeleteSuccess) {
-        val snackbar = Snackbar.make(
-            binding.root,
-            command.message,
-            Snackbar.LENGTH_LONG,
-        )
+        val snackbar = Snackbar.make(binding.root, command.message, LENGTH_LONG)
         snackbar.setAction(command.action) {
             viewModel.deletedAction()
         }
         snackbar.show()
     }
 
-    private fun onAnnounceUndoResult(command: AnnounceUndoResult) {
-        val snackbar = Snackbar.make(
-            binding.root,
-            command.message,
-            Snackbar.LENGTH_LONG,
-        )
-        snackbar.show()
+    private fun simpleFeedback(message: String) {
+        Snackbar.make(binding.root, message, LENGTH_LONG).show()
     }
 
     private fun onLoading() {

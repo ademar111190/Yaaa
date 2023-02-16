@@ -49,4 +49,6 @@
     <string name="add_location_delete_success_undo">Undo</string>
     <string name="add_location_delete_success_undo_success">Location was added back</string>
     <string name="add_location_delete_success_undo_error">Undo error</string>
+    <string name="add_location_edition_error">Failed to edit location.</string>
+    <string name="add_location_edition_success">Location edited.</string>
 </resources>

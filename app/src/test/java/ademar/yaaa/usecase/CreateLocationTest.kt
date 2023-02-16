@@ -12,6 +12,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations.openMocks
 import org.mockito.kotlin.any
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 
@@ -81,16 +82,22 @@ class CreateLocationTest {
     @Test
     fun deleteLocation_whenLocationIsDeleted_shouldNotThrowException() = runTest {
         val location = makeLocation()
-        whenever(locationMapper.mapToLocationEntity(location)).thenReturn(makeLocationEntity())
-
         usecase.deleteLocation(location.id)
+        verify(locationDao).delete(location.id)
     }
 
     @Test
     fun undeleteLocation() = runTest {
         val location = makeLocation()
-        whenever(locationMapper.mapToLocationEntity(location)).thenReturn(makeLocationEntity())
         usecase.undeleteLocation(location.id)
+        verify(locationDao).undelete(location.id)
+    }
+
+    @Test
+    fun updateLocation() = runTest {
+        val location = makeLocation()
+        usecase.updateLocation(location.id, location.name)
+        verify(locationDao).createOrUpdate(makeLocationEntity())
     }
 
 }

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class LocationsViewHolder(
     private val binding: LocationViewHolderBinding,
+    private val onEditClick: (Long) -> Unit,
     private val onDeleteClick: (Long) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -13,6 +14,9 @@ class LocationsViewHolder(
     init {
         binding.delete.setOnClickListener {
             id?.let(onDeleteClick)
+        }
+        binding.root.setOnClickListener {
+            id?.let(onEditClick)
         }
     }
 
