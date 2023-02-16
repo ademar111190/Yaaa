@@ -28,6 +28,7 @@ class LocationsViewModel @Inject constructor(
 
     private var locationsById = mutableMapOf<Long, Location>()
     private var lastTriedLocationName = ""
+    private var deletedId: Long? = null
 
     fun load() = viewModelScope.launch {
         log.debug("load")
@@ -84,8 +85,64 @@ class LocationsViewModel @Inject constructor(
         )
     }
 
-    fun locationDeleteTapped(id: Long) {
+    fun locationDeleteTapped(id: Long) = viewModelScope.launch {
         log.debug("locationDeleteTapped: $id")
+
+        val removed = locationsById.remove(id)
+        if (removed == null) {
+            log.error("location not found")
+            command.value = AnnounceDeleteError(
+                message = resources.getString(R.string.add_location_delete_error),
+            )
+            return@launch
+        }
+        deletedId = id
+
+        try {
+            createLocation.deleteLocation(id)
+            command.value = AnnounceDeleteSuccess(
+                message = resources.getString(R.string.add_location_delete_success),
+                action = resources.getString(R.string.add_location_delete_success_undo),
+            )
+        } catch (e: Exception) {
+            log.error("Error deleting location", e)
+            command.value = AnnounceDeleteError(
+                message = resources.getString(R.string.add_location_delete_error),
+            )
+            return@launch
+        }
+
+        model.value = success()
+    }
+
+    fun deletedAction() = viewModelScope.launch {
+        log.debug("deletedAction")
+        val id = deletedId
+        if (id == null) {
+            log.error("id is null")
+            command.value = AnnounceUndoResult(
+                message = resources.getString(R.string.add_location_delete_success_undo_error),
+            )
+            return@launch
+        }
+
+        try {
+            createLocation.undeleteLocation(id)
+            val location = fetchLocations.locationById(id)
+            locationsById[location.id] = location
+        } catch (e: Exception) {
+            log.error("Error creating location", e)
+            command.value = AnnounceUndoResult(
+                message = resources.getString(R.string.add_location_delete_success_undo_error),
+            )
+            return@launch
+        }
+
+        command.value = AnnounceUndoResult(
+            message = resources.getString(R.string.add_location_delete_success_undo_success),
+        )
+
+        model.value = success()
     }
 
     fun back() {

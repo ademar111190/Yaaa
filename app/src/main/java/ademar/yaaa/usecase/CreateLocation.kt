@@ -35,4 +35,8 @@ class CreateLocation @Inject constructor(
         appDatabase.locationDao().delete(id)
     }
 
+    suspend fun undeleteLocation(id: Long) {
+        appDatabase.locationDao().undelete(id)
+    }
+
 }

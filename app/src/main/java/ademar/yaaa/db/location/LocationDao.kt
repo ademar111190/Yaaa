@@ -21,4 +21,7 @@ interface LocationDao {
     @Query("UPDATE locations SET deleted = 1 WHERE pk = :locationId")
     suspend fun delete(locationId: Long)
 
+    @Query("UPDATE locations SET deleted = 0 WHERE pk = :locationId")
+    suspend fun undelete(locationId: Long)
+
 }

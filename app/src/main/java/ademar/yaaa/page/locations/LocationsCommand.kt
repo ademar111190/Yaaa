@@ -17,3 +17,16 @@ data class AnnounceSaveSuccess(
     val message: String,
     val action: String,
 ) : LocationsCommand()
+
+data class AnnounceDeleteError(
+    val message: String,
+) : LocationsCommand()
+
+data class AnnounceDeleteSuccess(
+    val message: String,
+    val action: String,
+) : LocationsCommand()
+
+data class AnnounceUndoResult(
+    val message: String,
+) : LocationsCommand()

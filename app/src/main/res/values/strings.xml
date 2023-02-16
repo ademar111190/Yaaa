@@ -44,4 +44,9 @@
     <string name="add_location_cancel">Cancel</string>
     <string name="add_location_error_invalid_name">Invalid location name.</string>
     <string name="add_location_error_failed_to_save">Failed to save location.</string>
+    <string name="add_location_delete_error">Failed to delete location.</string>
+    <string name="add_location_delete_success">Location deleted.</string>
+    <string name="add_location_delete_success_undo">Undo</string>
+    <string name="add_location_delete_success_undo_success">Location was added back</string>
+    <string name="add_location_delete_success_undo_error">Undo error</string>
 </resources>

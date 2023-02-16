@@ -64,6 +64,9 @@ class LocationsActivity : AppCompatActivity() {
                 is NavigateToAddLocation -> openAddLocationDialog(command)
                 is AnnounceSaveError -> onAnnounceSaveError(command)
                 is AnnounceSaveSuccess -> onAnnounceSaveSuccess(command)
+                is AnnounceDeleteError -> onAnnounceDeleteError(command)
+                is AnnounceDeleteSuccess -> onAnnounceDeleteSuccess(command)
+                is AnnounceUndoResult -> onAnnounceUndoResult(command)
             }
         }
 
@@ -109,6 +112,36 @@ class LocationsActivity : AppCompatActivity() {
         snackbar.setAction(command.action) {
             viewModel.savedAction()
         }
+        snackbar.show()
+    }
+
+    private fun onAnnounceDeleteError(command: AnnounceDeleteError) {
+        val snackbar = Snackbar.make(
+            binding.root,
+            command.message,
+            Snackbar.LENGTH_LONG,
+        )
+        snackbar.show()
+    }
+
+    private fun onAnnounceDeleteSuccess(command: AnnounceDeleteSuccess) {
+        val snackbar = Snackbar.make(
+            binding.root,
+            command.message,
+            Snackbar.LENGTH_LONG,
+        )
+        snackbar.setAction(command.action) {
+            viewModel.deletedAction()
+        }
+        snackbar.show()
+    }
+
+    private fun onAnnounceUndoResult(command: AnnounceUndoResult) {
+        val snackbar = Snackbar.make(
+            binding.root,
+            command.message,
+            Snackbar.LENGTH_LONG,
+        )
         snackbar.show()
     }
 

@@ -86,4 +86,11 @@ class CreateLocationTest {
         usecase.deleteLocation(location.id)
     }
 
+    @Test
+    fun undeleteLocation() = runTest {
+        val location = makeLocation()
+        whenever(locationMapper.mapToLocationEntity(location)).thenReturn(makeLocationEntity())
+        usecase.undeleteLocation(location.id)
+    }
+
 }

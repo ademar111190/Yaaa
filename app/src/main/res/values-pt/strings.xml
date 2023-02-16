@@ -44,4 +44,9 @@
     <string name="add_location_cancel">Cancelar</string>
     <string name="add_location_error_invalid_name">O nome do local é inválido.</string>
     <string name="add_location_error_failed_to_save">Falha ao salvar o local.</string>
+    <string name="add_location_delete_error">Falha ao deletar o local.</string>
+    <string name="add_location_delete_success">Local deletado.</string>
+    <string name="add_location_delete_success_undo">Desfazer</string>
+    <string name="add_location_delete_success_undo_success">O local foi restaurado.</string>
+    <string name="add_location_delete_success_undo_error">Falha ao desfazer a ação.</string>
 </resources>
