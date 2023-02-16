@@ -5,8 +5,8 @@
     <string name="unknown_location">Unknown Location</string>
     <string name="appointments_title">Appointments</string>
     <string name="appointments_retry">Retry</string>
-    <string name="appointments_new">New</string>
-    <string name="appointments_placeholder">No appointments, tap the \"+ New\" button to create one.</string>
+    <string name="appointments_new">Add Appointment</string>
+    <string name="appointments_placeholder">No appointments, tap the \"+ Add Appointment\" button to create one.</string>
     <string name="appointments_error_fetching_appointments">Error fetching appointments, please try again.</string>
     <string name="appointments_menu_edit_locations">Edit locations</string>
     <string name="appointment_creation_title">New Appointment</string>
@@ -31,4 +31,8 @@
     <string name="shortcut_create_appointment">Create Appointment</string>
     <string name="shortcut_edit_locations">Edit Locations</string>
     <string name="locations_title">Locations</string>
+    <string name="locations_placeholder">No locations, tap the \"+ Add Location\" button to create one.</string>
+    <string name="locations_new">Add Location</string>
+    <string name="locations_delete">Delete Location</string>
+    <string name="locations_error_fetching_locations">Error fetching locations.</string>
 </resources>
