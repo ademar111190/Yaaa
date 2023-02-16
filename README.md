@@ -47,3 +47,6 @@ Yaaa (Yeap Another Appointment App)
 - [ ] Add the option to share the logs.
 - [ ] Add Shortcuts to create appointments.
 - [ ] Show past appointments in a different way.
+
+
+![App Icon](assets/ic_launcher-playstore.png)
