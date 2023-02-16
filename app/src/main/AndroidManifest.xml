@@ -23,17 +23,21 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <activity
             android:name=".page.appointments.AppointmentsActivity"
             android:exported="false"
-            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar"/>
+            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar" />
 
         <activity
             android:name=".page.appointment.AppointmentActivity"
             android:exported="false"
-            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar"/>
+            android:theme="@style/Theme.YeapAnotherAppointmentApp.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

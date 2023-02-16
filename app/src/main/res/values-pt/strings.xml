@@ -26,4 +26,6 @@
     <string name="appointment_error_fetching_appointment">Erro ao buscar o agendamento.</string>
     <string name="appointment_error_invalid_location">Local inválido.</string>
     <string name="appointment_error_failed_to_save">Falha ao salvar o agendamento.</string>
+    <string name="shortcut_appointments">Agendamentos</string>
+    <string name="shortcut_create_appointment">Criar agendamento</string>
 </resources>

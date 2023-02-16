@@ -26,4 +26,6 @@
     <string name="appointment_error_fetching_appointment">Error fetching appointment.</string>
     <string name="appointment_error_invalid_location">Invalid location.</string>
     <string name="appointment_error_failed_to_save">Failed to save appointment.</string>
+    <string name="shortcut_appointments">Appointments</string>
+    <string name="shortcut_create_appointment">Create Appointment</string>
 </resources>

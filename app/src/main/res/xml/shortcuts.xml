@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedAttribute">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_appointments"
+        android:shortcutId="appointments"
+        android:shortcutLongLabel="@string/shortcut_appointments"
+        android:shortcutShortLabel="@string/shortcut_appointments">
+        <intent
+            android:action="ademar.yaaa.appointments"
+            android:targetClass="ademar.yaaa.MainActivity"
+            android:targetPackage="ademar.yaaa" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_create_appointment"
+        android:shortcutId="create_appointment"
+        android:shortcutLongLabel="@string/shortcut_create_appointment"
+        android:shortcutShortLabel="@string/shortcut_create_appointment">
+        <intent
+            android:action="ademar.yaaa.create_appointment"
+            android:targetClass="ademar.yaaa.MainActivity"
+            android:targetPackage="ademar.yaaa" />
+    </shortcut>
+
+</shortcuts>
