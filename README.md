@@ -30,7 +30,7 @@ Yaaa (Yeap Another Appointment App)
 
 ## Some notes
 
-- The app uses the adaptative icon with material you enabled, so it will look different in different devices.
+- The app uses the adaptative icon with material you enabled and day nigth theme, so it will look different in different devices.
 - The list of libraries can be found in the [`gradle/libs.versions.toml`](gradle/libs.versions.toml) file.
 - The app contains translations for English and Portuguese.
 
@@ -43,5 +43,6 @@ Yaaa (Yeap Another Appointment App)
 - [ ] Integrate the appointments with the alarm manager.
 - [ ] Save the last used location and use it as a default when creating a new appointment.
 - [ ] Add a splash screen.
-- [ ] Add the option to share the logs
-- [ ] Day and night themes
+- [ ] Add a widget to show the next appointment.
+- [ ] Add the option to share the logs.
+- [ ] Add Shortcuts to create appointments.

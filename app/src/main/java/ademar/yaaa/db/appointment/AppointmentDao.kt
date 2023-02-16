@@ -12,7 +12,7 @@ interface AppointmentDao {
     @Query("SELECT pk FROM appointments WHERE rowid = :rowId")
     suspend fun readPk(rowId: Long): Long?
 
-    @Query("SELECT * FROM appointments")
+    @Query("SELECT * FROM appointments ORDER BY appointments.date DESC")
     suspend fun readAll(): List<AppointmentEntity>
 
     @Query("SELECT * FROM appointments WHERE appointments.pk = :id")

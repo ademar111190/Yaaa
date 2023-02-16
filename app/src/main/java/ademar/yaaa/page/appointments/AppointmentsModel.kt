@@ -1,7 +1,5 @@
 package ademar.yaaa.page.appointments
 
-import ademar.yaaa.data.Appointment
-
 sealed class AppointmentsModel
 
 object Initial : AppointmentsModel()
@@ -13,5 +11,13 @@ data class Error(
 ) : AppointmentsModel()
 
 data class Success(
-    val appointments: List<Appointment>,
+    val appointments: List<AppointmentItem>,
 ) : AppointmentsModel()
+
+data class AppointmentItem(
+    val id: Long,
+    val hour: String,
+    val date: String,
+    val location: String,
+    val description: String,
+)

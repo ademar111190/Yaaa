@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.slf4j.LoggerFactory
 
@@ -17,6 +18,10 @@ class AppointmentsActivity : AppCompatActivity() {
     private val log = LoggerFactory.getLogger("AppointmentsActivity")
     private val viewModel by viewModels<AppointmentsViewModel>()
     private lateinit var binding: AppointmentsActivityBinding
+
+    private val adapter = AppointmentsAdapter { id ->
+        viewModel.appointmentTapped(id)
+    }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +34,8 @@ class AppointmentsActivity : AppCompatActivity() {
         binding.addButton.setOnClickListener {
             viewModel.add()
         }
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
 
         viewModel.model.observe(this) { model ->
             log.debug("onModel: $model")
@@ -44,6 +51,9 @@ class AppointmentsActivity : AppCompatActivity() {
             log.debug("onCommand: $command")
             when (command) {
                 is NavigateToAppointmentCreation -> startActivity(
+                    Intent(this, AppointmentActivity::class.java)
+                )
+                is NavigateToAppointmentDetails -> startActivity(
                     Intent(this, AppointmentActivity::class.java)
                 )
             }
@@ -83,6 +93,7 @@ class AppointmentsActivity : AppCompatActivity() {
             binding.placeholderGroup.visibility = GONE
             binding.contentGroup.visibility = VISIBLE
         }
+        adapter.update(model.appointments)
     }
 
 }
