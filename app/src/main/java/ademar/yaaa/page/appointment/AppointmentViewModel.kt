@@ -34,7 +34,7 @@ class AppointmentViewModel @Inject constructor(
     private var dateTime = dateCreator.create()
     private var location: Location? = null
     private var description = ""
-    private val locationsMap = mutableMapOf<String, Location>()
+    private val locationsByName = mutableMapOf<String, Location>()
 
     fun load(
         appointmentId: Long? = null,
@@ -44,10 +44,12 @@ class AppointmentViewModel @Inject constructor(
 
         try {
             val locations = fetchLocations.allLocations()
+            val locationsById = mutableMapOf<Long, Location>()
             locations.forEach { location ->
-                locationsMap[location.name] = location
+                locationsByName[location.name] = location
+                locationsById[location.id] = location
             }
-            location = locationsMap[preferences.lastUsedLocation()]
+            location = locationsById[preferences.lastUsedLocationId()]
         } catch (e: Exception) {
             log.error("Error fetching locations", e)
             model.value = Error(resources.getString(R.string.appointment_error_fetching_locations))
@@ -94,16 +96,17 @@ class AppointmentViewModel @Inject constructor(
 
     fun updateLocation(newLocation: String?) {
         log.debug("updateLocation: $newLocation")
-        newLocation?.let { preferences.saveLastUsedLocation(it) }
         if (newLocation == location?.name) {
             return
         }
 
-        location = if (newLocation != null && locationsMap.containsKey(newLocation)) {
-            locationsMap[newLocation]
+        location = if (newLocation != null && locationsByName.containsKey(newLocation)) {
+            locationsByName[newLocation]
         } else {
             null
         }
+        location?.id?.let { preferences.saveLastUsedLocationId(it) }
+
         model.value = success(
             saveStatus = SaveStatus.NOT_SAVED,
         )
@@ -226,8 +229,8 @@ class AppointmentViewModel @Inject constructor(
         date = dateTimeMapper.mapToDateString(dateTime),
         location = location?.name,
         description = description,
-        locationOptions = locationsMap.keys.toSet(),
-        locationIndex = location?.name?.let { locationsMap.keys.indexOf(it) } ?: -1,
+        locationOptions = locationsByName.keys.toSet(),
+        locationIndex = location?.name?.let { locationsByName.keys.indexOf(it) } ?: -1,
         saveStatus = saveStatus,
         saveLabel = appointmentId?.let {
             resources.getString(R.string.appointment_save_update)

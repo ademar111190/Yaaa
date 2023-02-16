@@ -13,14 +13,15 @@ class Preferences @Inject constructor(
 
     private val prefs = context.getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
 
-    fun lastUsedLocation() = prefs.getString(LAST_USED_LOCATION, null)
+    fun lastUsedLocationId() = prefs.getLong(LAST_USED_LOCATION, NO_LOCATION_ID)
 
-    fun saveLastUsedLocation(location: String) = prefs.edit()
-        .putString(LAST_USED_LOCATION, location)
+    fun saveLastUsedLocationId(locationId: Long) = prefs.edit()
+        .putLong(LAST_USED_LOCATION, locationId)
         .apply()
 
     companion object {
 
+        const val NO_LOCATION_ID = -1L
         private const val SHARED_PREFERENCES_NAME = "YAAA_SHARED_PREFERENCES"
         private const val LAST_USED_LOCATION = "LAST_USED_LOCATION"
 

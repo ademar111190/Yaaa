@@ -1,17 +1,12 @@
 package ademar.yaaa.usecase
 
-import ademar.yaaa.Dummies
-import ademar.yaaa.db.AppDatabase
-import ademar.yaaa.db.location.LocationDao
-import ademar.yaaa.usecase.mapper.LocationMapper
+import ademar.yaaa.usecase.Preferences.Companion.NO_LOCATION_ID
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.content.res.Resources
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.MockitoAnnotations.openMocks
 import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
@@ -30,21 +25,21 @@ class PreferencesTest {
         openMocks(this)
         whenever(context.getSharedPreferences("YAAA_SHARED_PREFERENCES", MODE_PRIVATE)).thenReturn(preferences)
         whenever(preferences.edit()).thenReturn(editor)
-        whenever(editor.putString(any(), any())).thenReturn(editor)
+        whenever(editor.putLong(any(), any())).thenReturn(editor)
         usecase = Preferences(context)
     }
 
     @Test
     fun testLastUsedLocation() {
-        whenever(preferences.getString("LAST_USED_LOCATION", null)).thenReturn("location")
-        assertEquals(usecase.lastUsedLocation(), "location")
+        whenever(preferences.getLong("LAST_USED_LOCATION", NO_LOCATION_ID)).thenReturn(1L)
+        assertEquals(usecase.lastUsedLocationId(), 1L)
     }
 
     @Test
     fun testSaveLastUsedLocation() {
-        usecase.saveLastUsedLocation("location")
+        usecase.saveLastUsedLocationId(1L)
         verify(preferences).edit()
-        verify(editor).putString("LAST_USED_LOCATION", "location")
+        verify(editor).putLong("LAST_USED_LOCATION", 1L)
         verify(editor).apply()
     }
 
