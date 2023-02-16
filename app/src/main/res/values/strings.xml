@@ -9,6 +9,7 @@
     <string name="appointments_placeholder">No appointments, tap the \"+ Add Appointment\" button to create one.</string>
     <string name="appointments_error_fetching_appointments">Error fetching appointments, please try again.</string>
     <string name="appointments_menu_edit_locations">Edit locations</string>
+    <string name="appointments_menu_share_logs">Share logs</string>
     <string name="appointment_creation_title">New Appointment</string>
     <string name="appointment_description_hint">Description</string>
     <string name="appointment_location_hint">Location:</string>
@@ -51,4 +52,6 @@
     <string name="add_location_delete_success_undo_error">Undo error</string>
     <string name="add_location_edition_error">Failed to edit location.</string>
     <string name="add_location_edition_success">Location edited.</string>
+    <string name="share_logs_title">Share logs</string>
+    <string name="share_logs_message">Please share the logs with the developer to help him fix the issue.</string>
 </resources>

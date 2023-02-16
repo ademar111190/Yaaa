@@ -65,6 +65,10 @@ class AppointmentViewModel @Inject constructor(
                     location = appointment.location
                     description = appointment.description
 
+                    if (!locationsByName.containsKey(appointment.location.name)) {
+                        locationsByName[appointment.location.name] = appointment.location
+                    }
+
                     model.value = success(
                         saveStatus = SaveStatus.SAVED,
                     )

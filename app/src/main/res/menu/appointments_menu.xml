@@ -7,4 +7,9 @@
         android:title="@string/appointments_menu_edit_locations"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/share_logs"
+        android:title="@string/appointments_menu_share_logs"
+        app:showAsAction="never" />
+
 </menu>

@@ -35,6 +35,10 @@ class AppointmentsActivity : AppCompatActivity() {
                     viewModel.editLocations()
                     true
                 }
+                R.id.share_logs -> {
+                    viewModel.shareLogs(this)
+                    true
+                }
                 else -> false
             }
         }

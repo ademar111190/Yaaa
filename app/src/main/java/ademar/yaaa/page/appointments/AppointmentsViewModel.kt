@@ -3,7 +3,9 @@ package ademar.yaaa.page.appointments
 import ademar.yaaa.R
 import ademar.yaaa.data.Appointment
 import ademar.yaaa.usecase.FetchAppointments
+import ademar.yaaa.usecase.ShareLogs
 import ademar.yaaa.usecase.mapper.DateTimeMapper
+import android.app.Activity
 import android.app.Application
 import android.content.res.Resources
 import androidx.lifecycle.AndroidViewModel
@@ -20,6 +22,7 @@ class AppointmentsViewModel @Inject constructor(
     private val resources: Resources,
     private val fetchAppointments: FetchAppointments,
     private val dateTimeMapper: DateTimeMapper,
+    private val shareLogs: ShareLogs,
 ) : AndroidViewModel(application) {
 
     private val log = LoggerFactory.getLogger("AppointmentsViewModel")
@@ -71,6 +74,11 @@ class AppointmentsViewModel @Inject constructor(
     fun editLocations() {
         log.debug("editLocations")
         command.value = NavigateToLocations
+    }
+
+    fun shareLogs(context: Activity) {
+        log.debug("shareLogs")
+        shareLogs.shareLogs(context)
     }
 
 }

@@ -46,7 +46,7 @@ Yaaa (Yeap Another Appointment App)
 - [X] Save the last used location and use it as a default when creating a new appointment.
 - [ ] Add a splash screen.
 - [ ] Add a widget to show the next appointment.
-- [ ] Add the option to share the logs.
+- [X] Add the option to share the logs.
 - [ ] Show past appointments in a different way.
 
 

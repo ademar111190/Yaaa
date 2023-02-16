@@ -9,6 +9,7 @@
     <string name="appointments_placeholder">Nenhum agendamento, toque no botão \"+ Adicionar agendamento\" para criar um.</string>
     <string name="appointments_error_fetching_appointments">Erro ao buscar agendamentos, por favor, tente novamente.</string>
     <string name="appointments_menu_edit_locations">Editar locais</string>
+    <string name="appointments_menu_share_logs">Compartilhar logs</string>
     <string name="appointment_creation_title">Novo agendamento</string>
     <string name="appointment_description_hint">Descrição</string>
     <string name="appointment_location_hint">Local:</string>
@@ -51,4 +52,6 @@
     <string name="add_location_delete_success_undo_error">Falha ao desfazer a ação.</string>
     <string name="add_location_edition_error">Falha ao editar o local.</string>
     <string name="add_location_edition_success">Local editado.</string>
+    <string name="share_logs_title">Compartilhar logs</string>
+    <string name="share_logs_message">Por favor, envie os logs para o desenvolvedor para que ele possa corrigir o problema.</string>
 </resources>
