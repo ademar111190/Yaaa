@@ -18,8 +18,8 @@
     <string name="appointment_save_update">Update Appointment</string>
     <string name="appointment_saved">Appointment saved.</string>
     <string name="appointment_saved_leave_edition">Finish edition</string>
-    <string name="appointment_delete">Delete Appointment</string>
-    <string name="appointment_deleted">Appointment deleted.</string>
+    <string name="appointment_delete">Cancel Appointment</string>
+    <string name="appointment_deleted">Appointment canceled.</string>
     <string name="appointment_deleted_undo">Undo</string>
     <string name="appointment_error_failed_to_delete">Failed to delete appointment.</string>
     <string name="appointment_error_fetching_locations">Error fetching locations.</string>

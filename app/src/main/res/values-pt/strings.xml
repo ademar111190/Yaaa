@@ -18,8 +18,8 @@
     <string name="appointment_save_update">Atualizar agendamento</string>
     <string name="appointment_saved">Agendamento salvo.</string>
     <string name="appointment_saved_leave_edition">Finalizar edição</string>
-    <string name="appointment_delete">Deletar agendamento</string>
-    <string name="appointment_deleted">Agendamento deletado.</string>
+    <string name="appointment_delete">Cancelar agendamento</string>
+    <string name="appointment_deleted">Agendamento cancelado.</string>
     <string name="appointment_deleted_undo">Desfazer</string>
     <string name="appointment_error_failed_to_delete">Falha ao deletar o agendamento.</string>
     <string name="appointment_error_fetching_locations">Erro ao buscar os locais.</string>
