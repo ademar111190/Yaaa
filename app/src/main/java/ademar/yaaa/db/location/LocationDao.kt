@@ -5,8 +5,11 @@ import androidx.room.*
 @Dao
 interface LocationDao {
 
-    @Insert
-    suspend fun create(location: LocationEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun createOrUpdate(location: LocationEntity): Long?
+
+    @Query("SELECT pk FROM locations WHERE rowid = :rowId")
+    suspend fun readPk(rowId: Long): Long?
 
     @Query("SELECT * FROM locations WHERE deleted = 0 ORDER BY name ASC")
     suspend fun readAll(): List<LocationEntity>

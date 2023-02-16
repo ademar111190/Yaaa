@@ -46,7 +46,7 @@ class LocationTest {
     @Test
     fun create_readAll_shouldContainCreatedLocation() = runTest {
         val location = LocationEntity(7, "New York", false)
-        dao.create(location)
+        dao.createOrUpdate(location)
 
         val locations = dao.readAll()
 
@@ -59,7 +59,7 @@ class LocationTest {
     @Test
     fun create_read_shouldContainCreatedLocation() = runTest {
         val location = LocationEntity(7, "New York", false)
-        dao.create(location)
+        dao.createOrUpdate(location)
 
         val readLocation = dao.read(7)
 
