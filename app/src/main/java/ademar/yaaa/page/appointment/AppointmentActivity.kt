@@ -2,6 +2,8 @@ package ademar.yaaa.page.appointment
 
 import ademar.yaaa.R
 import ademar.yaaa.databinding.AppointmentActivityBinding
+import android.content.Context
+import android.content.Intent
 import android.text.format.DateFormat.is24HourFormat
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -76,7 +78,9 @@ class AppointmentActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.load()
+        viewModel.load(
+            appointmentId = intent.getLongExtra(APPOINTMENT_ID, -1L).takeIf { it != -1L },
+        )
     }
 
     private fun onDatePicker(command: NavigateToDatePicker) {
@@ -132,12 +136,17 @@ class AppointmentActivity : AppCompatActivity() {
         binding.loadGroup.visibility = GONE
         binding.errorGroup.visibility = GONE
         binding.contentGroup.visibility = VISIBLE
+
         if (!descriptionInEdition) {
             binding.description.setText(model.description)
         }
         spinnerAdapter.updateLocations(model.locationOptions)
+        if (model.locationIndex >= 0) {
+            binding.locations.setSelection(model.locationIndex)
+        }
         binding.date.text = model.date
         binding.hour.text = model.hour
+        binding.save.text = model.saveLabel
 
         when (model.saveStatus) {
             SaveStatus.SAVED -> {
@@ -174,6 +183,21 @@ class AppointmentActivity : AppCompatActivity() {
                 binding.hour.isEnabled = true
             }
         }
+    }
+
+    companion object {
+
+        private const val APPOINTMENT_ID = "appointment_id"
+
+        fun newIntent(
+            context: Context,
+            appointmentId: Long? = null,
+        ) = Intent(context, AppointmentActivity::class.java).apply {
+            if (appointmentId != null) {
+                putExtra(APPOINTMENT_ID, appointmentId)
+            }
+        }
+
     }
 
 }

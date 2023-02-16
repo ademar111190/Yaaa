@@ -44,7 +44,7 @@ class AppointmentTest {
     @Test
     fun create_readAll_shouldContainCreatedAppointment() = runTest {
         val appointment = makeAppointmentEntity()
-        dao.create(appointment)
+        dao.createOrUpdate(appointment)
 
         val appointments = dao.readAll()
 
@@ -61,7 +61,7 @@ class AppointmentTest {
     @Test
     fun create_readPk_shouldReturnPk() = runTest {
         val appointment = makeAppointmentEntity()
-        val rowId = dao.create(appointment) ?: fail("Failed to create appointment.")
+        val rowId = dao.createOrUpdate(appointment) ?: fail("Failed to create appointment.")
         val pk = dao.readPk(rowId)
         assertEquals(pk, appointment.id)
     }
@@ -72,9 +72,9 @@ class AppointmentTest {
             val appointment1 = makeAppointmentEntity()
             val appointment2 = makeAppointmentEntity(id = 2, locationId = 2)
             val appointment3 = makeAppointmentEntity(id = 3)
-            dao.create(appointment1)
-            dao.create(appointment2)
-            dao.create(appointment3)
+            dao.createOrUpdate(appointment1)
+            dao.createOrUpdate(appointment2)
+            dao.createOrUpdate(appointment3)
 
             val appointments = dao.read(listOf(1))
 
@@ -85,9 +85,9 @@ class AppointmentTest {
     @Test
     fun update_readAll_shouldContainUpdatedAppointment() = runTest {
         val appointment = makeAppointmentEntity()
-        dao.create(appointment)
+        dao.createOrUpdate(appointment)
         val updatedAppointment = appointment.copy(description = "An Updated Description")
-        dao.update(updatedAppointment)
+        dao.createOrUpdate(updatedAppointment)
 
         val appointments = dao.readAll()
 
@@ -98,7 +98,7 @@ class AppointmentTest {
     @Test
     fun delete_readAll_shouldNotContainDeletedAppointment() = runTest {
         val appointment = makeAppointmentEntity()
-        dao.create(appointment)
+        dao.createOrUpdate(appointment)
         dao.delete(appointment)
 
         val appointments = dao.readAll()

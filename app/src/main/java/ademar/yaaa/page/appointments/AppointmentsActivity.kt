@@ -3,7 +3,6 @@ package ademar.yaaa.page.appointments
 import ademar.yaaa.R
 import ademar.yaaa.databinding.AppointmentsActivityBinding
 import ademar.yaaa.page.appointment.AppointmentActivity
-import android.content.Intent
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
@@ -50,12 +49,8 @@ class AppointmentsActivity : AppCompatActivity() {
         viewModel.command.observe(this) { command ->
             log.debug("onCommand: $command")
             when (command) {
-                is NavigateToAppointmentCreation -> startActivity(
-                    Intent(this, AppointmentActivity::class.java)
-                )
-                is NavigateToAppointmentDetails -> startActivity(
-                    Intent(this, AppointmentActivity::class.java)
-                )
+                is NavigateToAppointmentCreation -> startActivity(AppointmentActivity.newIntent(this))
+                is NavigateToAppointmentDetails -> startActivity(AppointmentActivity.newIntent(this, command.id))
             }
         }
 

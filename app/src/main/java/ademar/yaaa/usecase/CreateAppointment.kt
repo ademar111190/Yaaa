@@ -16,12 +16,14 @@ class CreateAppointment @Inject constructor(
 ) {
 
     suspend fun createAppointment(
+        id: Long? = null,
         date: Date,
         location: Location,
         description: String,
     ): Appointment {
-        val rowId = appDatabase.appointmentDao().create(
+        val rowId = appDatabase.appointmentDao().createOrUpdate(
             AppointmentEntity(
+                id = id ?: 0L,
                 locationId = location.id,
                 date = date,
                 description = description,
@@ -32,6 +34,12 @@ class CreateAppointment @Inject constructor(
         val entity = appDatabase.appointmentDao()
             .read(pk) ?: throw IllegalStateException("Failed to save appointment.")
         return appointmentMapper.mapToAppointment(entity, location)
+    }
+
+    suspend fun deleteAppointment(appointment: Appointment) {
+        appDatabase.appointmentDao().delete(
+            appointmentMapper.mapToAppointmentEntity(appointment),
+        )
     }
 
 }

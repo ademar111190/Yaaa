@@ -35,7 +35,7 @@ class CreateAppointmentTest {
     @Test
     fun createAppointment_whenAppointmentIsCreated_shouldReturnCreatedAppointment() = runTest {
         val appointment = makeAppointment()
-        whenever(appointmentDao.create(any())).thenReturn(1)
+        whenever(appointmentDao.createOrUpdate(any())).thenReturn(1)
         whenever(appointmentDao.readPk(1)).thenReturn(2)
         whenever(appointmentDao.read(2)).thenReturn(makeAppointmentEntity())
 
@@ -51,7 +51,7 @@ class CreateAppointmentTest {
     @Test(expected = IllegalStateException::class)
     fun createAppointment_whenFailedToReadPk_shouldThrowException() = runTest {
         val appointment = makeAppointment()
-        whenever(appointmentDao.create(any())).thenReturn(1)
+        whenever(appointmentDao.createOrUpdate(any())).thenReturn(1)
         whenever(appointmentDao.readPk(1)).thenReturn(2)
         whenever(appointmentDao.read(2)).thenReturn(null)
 
@@ -65,7 +65,7 @@ class CreateAppointmentTest {
     @Test(expected = IllegalStateException::class)
     fun createAppointment_whenFailedToReadRowId_shouldThrowException() = runTest {
         val appointment = makeAppointment()
-        whenever(appointmentDao.create(any())).thenReturn(1)
+        whenever(appointmentDao.createOrUpdate(any())).thenReturn(1)
         whenever(appointmentDao.readPk(1)).thenReturn(null)
 
         usecase.createAppointment(
@@ -78,13 +78,21 @@ class CreateAppointmentTest {
     @Test(expected = IllegalStateException::class)
     fun createAppointment_whenFailedToCreate_shouldThrowException() = runTest {
         val appointment = makeAppointment()
-        whenever(appointmentDao.create(any())).thenReturn(null)
+        whenever(appointmentDao.createOrUpdate(any())).thenReturn(null)
 
         usecase.createAppointment(
             date = appointment.date,
             location = appointment.location,
             description = appointment.description,
         )
+    }
+
+    @Test
+    fun deleteAppointment_whenAppointmentIsDeleted_shouldNotThrowException() = runTest {
+        val appointment = makeAppointment()
+        whenever(appointmentMapper.mapToAppointmentEntity(appointment)).thenReturn(makeAppointmentEntity())
+
+        usecase.deleteAppointment(appointment)
     }
 
 }

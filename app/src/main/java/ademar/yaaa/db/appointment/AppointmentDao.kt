@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy.Companion.REPLACE
 interface AppointmentDao {
 
     @Insert(onConflict = REPLACE)
-    suspend fun create(appointment: AppointmentEntity): Long?
+    suspend fun createOrUpdate(appointment: AppointmentEntity): Long?
 
     @Query("SELECT pk FROM appointments WHERE rowid = :rowId")
     suspend fun readPk(rowId: Long): Long?
@@ -20,9 +20,6 @@ interface AppointmentDao {
 
     @Query("SELECT * FROM appointments WHERE appointments.location_fk IN (:locationIds)")
     suspend fun read(locationIds: List<Long>): List<AppointmentEntity>
-
-    @Update
-    suspend fun update(appointment: AppointmentEntity)
 
     @Delete
     suspend fun delete(appointment: AppointmentEntity)

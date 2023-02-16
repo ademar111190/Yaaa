@@ -4,6 +4,7 @@ import ademar.yaaa.R
 import ademar.yaaa.data.Location
 import ademar.yaaa.usecase.CreateAppointment
 import ademar.yaaa.usecase.DateCreator
+import ademar.yaaa.usecase.FetchAppointments
 import ademar.yaaa.usecase.FetchLocations
 import ademar.yaaa.usecase.mapper.DateTimeMapper
 import android.app.Application
@@ -22,6 +23,7 @@ class AppointmentViewModel @Inject constructor(
     private val resources: Resources,
     dateCreator: DateCreator,
     private val dateTimeMapper: DateTimeMapper,
+    private val fetchAppointments: FetchAppointments,
     private val fetchLocations: FetchLocations,
     private val createAppointment: CreateAppointment,
 ) : AndroidViewModel(application) {
@@ -30,13 +32,16 @@ class AppointmentViewModel @Inject constructor(
     val model = MutableLiveData<AppointmentModel>(Initial)
     val command = MutableLiveData<AppointmentCommand>()
 
+    private var appointmentId: Long? = null
     private var dateTime = dateCreator.create()
     private var location: Location? = null
     private var description = ""
     private val locationsMap = mutableMapOf<String, Location>()
 
-    fun load() = viewModelScope.launch {
-        log.debug("load")
+    fun load(
+        appointmentId: Long? = null,
+    ) = viewModelScope.launch {
+        log.debug("load appointmentId: $appointmentId")
         model.value = Loading
 
         try {
@@ -48,6 +53,27 @@ class AppointmentViewModel @Inject constructor(
             log.error("Error fetching locations", e)
             model.value = Error(resources.getString(R.string.appointment_error_fetching_locations))
             return@launch
+        }
+
+        if (appointmentId != null) {
+            try {
+                val appointment = fetchAppointments.appointmentById(appointmentId)
+                if (appointment != null) {
+                    this@AppointmentViewModel.appointmentId = appointment.id
+                    dateTime = appointment.date
+                    location = appointment.location
+                    description = appointment.description
+
+                    model.value = success(
+                        saveStatus = SaveStatus.SAVED,
+                    )
+                    return@launch
+                }
+            } catch (e: Exception) {
+                log.error("Error fetching appointment", e)
+                model.value = Error(resources.getString(R.string.appointment_error_fetching_appointment))
+                return@launch
+            }
         }
 
         model.value = success(
@@ -126,11 +152,13 @@ class AppointmentViewModel @Inject constructor(
         }
 
         try {
-            createAppointment.createAppointment(
+            val entity = createAppointment.createAppointment(
+                id = appointmentId,
                 date = dateTime,
                 location = validLocation,
                 description = description,
             )
+            appointmentId = entity.id
         } catch (e: Exception) {
             log.error("Error creating appointment", e)
             model.value = Error(resources.getString(R.string.appointment_error_failed_to_save))
@@ -160,7 +188,11 @@ class AppointmentViewModel @Inject constructor(
         location = location?.name,
         description = description,
         locationOptions = locationsMap.keys.toSet(),
+        locationIndex = location?.name?.let { locationsMap.keys.indexOf(it) } ?: -1,
         saveStatus = saveStatus,
+        saveLabel = appointmentId?.let {
+            resources.getString(R.string.appointment_save_update)
+        } ?: resources.getString(R.string.appointment_save_create),
     )
 
 }

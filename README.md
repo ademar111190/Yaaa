@@ -46,3 +46,4 @@ Yaaa (Yeap Another Appointment App)
 - [ ] Add a widget to show the next appointment.
 - [ ] Add the option to share the logs.
 - [ ] Add Shortcuts to create appointments.
+- [ ] Show past appointments in a different way.

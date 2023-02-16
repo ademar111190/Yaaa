@@ -7,7 +7,6 @@ import ademar.yaaa.db.AppDatabase
 import ademar.yaaa.db.appointment.AppointmentDao
 import ademar.yaaa.usecase.mapper.AppointmentMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -16,6 +15,7 @@ import org.mockito.MockitoAnnotations.openMocks
 import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class FetchAppointmentsTest {
@@ -51,6 +51,25 @@ class FetchAppointmentsTest {
         val appointments = usecase.allAppointments()
 
         assertContentEquals(appointments, listOf(makeAppointment()))
+    }
+
+    @Test
+    fun appointmentById_whenAppointmentIsNotFound_shouldReturnNull() = runTest {
+        whenever(appointmentDao.read(1)).thenReturn(null)
+
+        val appointment = usecase.appointmentById(1)
+
+        assertEquals(appointment, null)
+    }
+
+    @Test
+    fun appointmentById_whenAppointmentIsFound_shouldReturnAppointment() = runTest {
+        whenever(fetchLocations.locationById(any())).thenReturn(makeLocation())
+        whenever(appointmentDao.read(1)).thenReturn(makeAppointmentEntity())
+
+        val appointment = usecase.appointmentById(1)
+
+        assertEquals(appointment, makeAppointment())
     }
 
 }
