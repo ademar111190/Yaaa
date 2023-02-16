@@ -13,7 +13,6 @@ import androidx.room.TypeConverters
         AppointmentEntity::class,
         LocationEntity::class,
     ],
-    exportSchema = false,
     version = 1,
 )
 @TypeConverters(Converters::class)

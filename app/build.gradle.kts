@@ -15,6 +15,12 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$rootDir/assets"
+            }
+        }
     }
 
     buildTypes {
